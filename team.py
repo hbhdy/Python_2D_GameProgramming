@@ -4,6 +4,8 @@ import os
 os.chdir('C:\\Temp\\2DGP\\hbhdy')
 from pico2d import *
 
+
+
 class Ch1:
     def __init__(self):
         self.x=100

@@ -13,7 +13,6 @@ import start_state
 
 name = "MainState"
 
-
 background=None
 
 class Background:
@@ -33,9 +32,10 @@ def enter():
     global zombie,vampire,skeleton,golem
     global ch1,ch2,ch3,ch4
     global characterUI
-    global my_team
+    global character_create
 
-    my_team=[]
+
+    character_create=[]
     background = Background()
     zombie = Zombie()
     vampire = Vampire()
@@ -50,9 +50,13 @@ def enter():
 
 
 def exit():
-    global background
-    del(background)
+    global background,characterUI,ch1,ch2,ch3,ch4
     del(characterUI)
+    del(background)
+    del(ch1)
+    del(ch2)
+    del(ch3)
+    del(ch4)
     pass
 
 def pause():
@@ -66,17 +70,26 @@ def mouse_click():
     global ch1,ch2,ch3,ch4
     if 20<mouse_x<120 and 20<mouse_y<120:
         ch1=Ch1()
+        if len(character_create)<50:
+            character_create.append(ch1)
+
 
     if 130<mouse_x<230 and 20 <mouse_y<120:
         ch4=Ch4()
+        if len(character_create)<50:
+            character_create.append(ch4)
 
 
     if 260<mouse_x<360 and 20<mouse_y<120:
         ch2=Ch2()
+        if len(character_create)<50:
+            character_create.append(ch2)
 
 
     if 370<mouse_x<470 and 20<mouse_y<120:
         ch3=Ch3()
+        if len(character_create)<50:
+            character_create.append(ch3)
 
 
 
@@ -115,10 +128,18 @@ def draw():
     vampire.draw()
     skeleton.draw()
     golem.draw()
-    ch1.draw()
-    ch2.draw()
-    ch3.draw()
-    ch4.draw()
+    for ch1 in character_create:
+        ch1.update()
+        ch1.draw()
+    for ch2 in character_create:
+        ch2.update()
+        ch2.draw()
+    for ch3 in character_create:
+        ch3.update()
+        ch3.draw()
+    for ch4 in character_create:
+        ch4.update()
+        ch4.draw()
     characterUI.draw(250,735)
 
     update_canvas()
