@@ -85,21 +85,21 @@ def mouse_click():
 
 
     if 140<mouse_x<230 and 20 <mouse_y<120:
-        ch4=Ch4()
-        if len(character_create4)<50:
-            character_create4.append(ch4)
+        ch2=Ch2()
+        if len(character_create2)<50:
+            character_create1.append(ch2)
 
 
     if 260<mouse_x<360 and 20<mouse_y<120:
-        ch2=Ch2()
-        if len(character_create2)<50:
-            character_create2.append(ch2)
+        ch3=Ch3()
+        if len(character_create3)<50:
+            character_create2.append(ch3)
 
 
     if 380<mouse_x<470 and 20<mouse_y<120:
-        ch3=Ch3()
-        if len(character_create3)<50:
-            character_create3.append(ch3)
+        ch4=Ch4()
+        if len(character_create4)<50:
+            character_create3.append(ch4)
 
 
 
