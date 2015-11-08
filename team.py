@@ -150,6 +150,7 @@ class Ch3:
     def draw(self):
         #self.die.clip_draw(self.die_frame *384 , 0,384, 384, 500, 300)
         self.walk.clip_draw(self.frame *288 , 0,  288, 288, self.x, 205)
+
         self.attack.clip_draw(self.frame *288 , 0, 288, 288, self.x, 205)
 
 class Ch4:

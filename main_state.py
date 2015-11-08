@@ -15,6 +15,8 @@ name = "MainState"
 
 background=None
 
+time_enemy=0
+
 class Background:
     def __init__(self):
         self.image=load_image('background.png')
@@ -36,8 +38,9 @@ def enter():
     global character_create2
     global character_create3
     global character_create4
+    global zombie_create
 
-
+    zombie_create=[]
     character_create1=[]
     character_create2=[]
     character_create3=[]
@@ -119,7 +122,10 @@ def handle_events(frame_time):
 
 
 def update(frame_time):
-    zombie.update()
+    global time_enemy
+
+    time_enemy+=(frame_time*100)
+    zombie.update(frame_time)
     vampire.update()
     skeleton.update()
     golem.update()
@@ -135,7 +141,10 @@ def draw(frame_time):
     clear_canvas()
     background.draw()
     characterUI.draw(250,735)
-    zombie.draw()
+    for zombie in zombie_create:
+        if time_enemy/100==5:
+            zombie.update(frame_time)
+            zombie.draw()
     vampire.draw()
     skeleton.draw()
     golem.draw()

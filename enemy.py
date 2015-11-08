@@ -5,10 +5,26 @@ os.chdir('C:\\Temp\\2DGP\\hbhdy')
 from pico2d import *
 
 
+class Zombie:
+    PIXEL_PER_METER = (10.0 / 0.1)           # 10 pixel 30 cm
+    RUN_SPEED_KMPH = 5.0                    # Km / Hour
+    RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
+    RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
+    RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
 
-class Zombie():
+    TIME_PER_ACTION = 0.5
+    ACTION_PER_TIME = 0.5 / TIME_PER_ACTION
+    FRAMES_PER_ACTION = 6
+
+
+
+    WALK,ATTACK,APPEAR,DIE=0,1,2,3
+
     def __init__(self):
         self.x=1500
+        self.frame=0
+        self.start=0
+        self.state=self.APPEAR
         self.die = load_image("resource\\enemy\\zombie\\die.png")
         self.walk = load_image("resource\\enemy\\zombie\\walk.png")
         self.attack = load_image("resource\\enemy\\zombie\\attack.png")
@@ -19,12 +35,28 @@ class Zombie():
         self.attack_frame=0
         self.appear_frame=0
 
-    def update(self):
-        self.appear_frame=(self.appear_frame+1)%11
-        self.die_frame=(self.die_frame+1)%8
-        self.walk_frame =(self.walk_frame+1)%10
-        self.x-=10
-        self.attack_frame=(self.attack_frame+1)%7
+    def update(self,frame_time):
+        distance = Zombie.RUN_SPEED_PPS * frame_time
+        self.walk_frame += Zombie.FRAMES_PER_ACTION * Zombie.ACTION_PER_TIME * frame_time
+        self.attack_frame += Zombie.FRAMES_PER_ACTION * Zombie.ACTION_PER_TIME * frame_time
+        self.appear_frame += Zombie.FRAMES_PER_ACTION * Zombie.ACTION_PER_TIME * frame_time
+        self.die_frame += Zombie.FRAMES_PER_ACTION * Zombie.ACTION_PER_TIME * frame_time
+        if self.state==self.APPEAR:
+            self.appear_frame=(self.appear_frame+1)%11
+        if self.state==self.DIE:
+            self.die_frame=(self.die_frame+1)%8
+        if self.state==self.WALK:
+            self.walk_frame =(self.walk_frame+1)%10
+        if self.state==self.ATTACK:
+            self.attack_frame=(self.attack_frame+1)%7
+        self.x-=(self.start*distance)
+
+        if self.x>1499:
+            self.start=1
+            self.state=self.WALK
+        elif self.x<300:
+            self.start=0
+            self.start=self.ATTACK
 
 
 
@@ -63,7 +95,7 @@ class Vampire:
 
 class Skeleton:
     def __init__(self):
-        self.x=1450
+        self.x=1500
         self.die=load_image("resource\\enemy\\skeleton\\die.png")
         self.walk=load_image("resource\\enemy\\skeleton\\walk.png")
         self.attack=load_image("resource\\enemy\\skeleton\\attack.png")
