@@ -1,7 +1,6 @@
 import random
 import game_framework
-import os
-os.chdir('C:\\Temp\\2DGP\\hbhdy')
+
 from pico2d import *
 
 
