@@ -1,5 +1,6 @@
 import random
 import json
+import time
 
 
 from enemy import *
@@ -14,7 +15,9 @@ name = "MainState"
 
 background=None
 
-time_enemy=0
+golem_index = 0
+GameStart_Time = 0
+GameEnd_Time = 0
 
 class Background:
     def __init__(self):
@@ -31,6 +34,7 @@ class Background:
 def enter():
     global background
     global zombie,vampire,skeleton,golem
+    global GameStart_Time,GameEnd_Time,golem_index
     global character1,character2,character3,character4
     global characterUI
     global character_create1
@@ -48,7 +52,11 @@ def enter():
     zombie = Zombie()
     vampire = Vampire()
     skeleton=Skeleton()
-    golem=Golem()
+    golem=[]
+    golem.append(Golem())
+    golem_index = 0
+    GameStart_Time = 0
+    GameStart_Time = time.time()
     character1=Character1()
     character2=Character2()
     character3=Character3()
@@ -56,6 +64,16 @@ def enter():
 
     characterUI=load_image('UI\\characterUI.png')
 
+def monster_create_Time():
+    global GameStart_Time, GameEnd_Time, golem_index, golem
+    GameEnd_Time = time.time()
+    tmep_Time = int(GameEnd_Time - GameStart_Time)
+    if( int(GameEnd_Time - GameStart_Time) == 1 ):
+        golem.append(Golem())
+        golem_index += 1
+        GameStart_Time = time.time()
+        print(tmep_Time)
+        print(golem_index)
 
 def exit():
     global background,characterUI,ch1,ch2,ch3,ch4
