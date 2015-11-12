@@ -33,15 +33,15 @@ class Background:
 
 def enter():
     global background
-    global zombie,vampire,skeleton,golem
-    global GameStart_Time,GameEnd_Time,golem_index
+    global vampire,skeleton,golem
+    global GameStart_Time,golem_index
     global character1,character2,character3,character4
     global characterUI
     global character_create1
     global character_create2
     global character_create3
     global character_create4
-    global zombie_create
+    # global zombie_create
 
     zombie_create=[]
     character_create1=[]
@@ -49,7 +49,7 @@ def enter():
     character_create3=[]
     character_create4=[]
     background = Background()
-    zombie = Zombie()
+    # zombie = Zombie()
     vampire = Vampire()
     skeleton=Skeleton()
     golem=[]
@@ -67,24 +67,24 @@ def enter():
 def monster_create_Time():
     global GameStart_Time, GameEnd_Time, golem_index, golem
     GameEnd_Time = time.time()
-    tmep_Time = int(GameEnd_Time - GameStart_Time)
-    if( int(GameEnd_Time - GameStart_Time) == 1 ):
+    temp_Time = int(GameEnd_Time - GameStart_Time)
+    if( int(GameEnd_Time - GameStart_Time) == 10 ):
         golem.append(Golem())
         golem_index += 1
         GameStart_Time = time.time()
-        print(tmep_Time)
+        print(temp_Time)
         print(golem_index)
 
 def exit():
-    global background,characterUI,ch1,ch2,ch3,ch4
-    global vampire,golem,skeleton,zombie
+    global background,characterUI,ch2,ch3,ch4
+    global vampire,golem,skeleton
     del(characterUI)
     del(background)
     del(character1)
     del(character2)
     del(character3)
     del(character4)
-    del(zombie)
+    # del(zombie)
     del(skeleton)
     del(vampire)
     del(golem)
@@ -139,32 +139,34 @@ def handle_events(frame_time):
 
 
 def update(frame_time):
-    global time_enemy
+    global golem_index
 
-    time_enemy+=(frame_time*100)
-    zombie.update(frame_time)
+
+    # zombie.update(frame_time)
     vampire.update()
     skeleton.update()
-    golem.update()
+    for i in range(0,golem_index):
+        golem[i].update()
     character1.update(frame_time)
     character2.update(frame_time)
     character3.update(frame_time)
     character4.update(frame_time)
+    monster_create_Time()
     pass
 
 
 def draw(frame_time):
+    global golem_index
 
     clear_canvas()
     background.draw()
     characterUI.draw(250,735)
-    for zombie in zombie_create:
-        if time_enemy/100==5:
-            zombie.update(frame_time)
-            zombie.draw()
+
+    # zombie.draw()
     vampire.draw()
     skeleton.draw()
-    golem.draw()
+    for i in range(0,golem_index):
+        golem[i].draw()
     for character1 in character_create1:
         character1.update(frame_time)
         character1.draw()
