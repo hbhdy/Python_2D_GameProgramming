@@ -68,7 +68,7 @@ def monster_create_Time():
     global GameStart_Time, GameEnd_Time, golem_index, golem
     GameEnd_Time = time.time()
     temp_Time = int(GameEnd_Time - GameStart_Time)
-    if( int(GameEnd_Time - GameStart_Time) == 10 ):
+    if( int(GameEnd_Time - GameStart_Time) == 20 ):
         golem.append(Golem())
         golem_index += 1
         GameStart_Time = time.time()
@@ -152,6 +152,7 @@ def update(frame_time):
     character3.update(frame_time)
     character4.update(frame_time)
     monster_create_Time()
+    delay(0.05)
     pass
 
 
@@ -163,22 +164,22 @@ def draw(frame_time):
     characterUI.draw(250,735)
 
     # zombie.draw()
-    vampire.draw()
-    skeleton.draw()
+    vampire.draw_appear()
+    skeleton.draw_appear()
     for i in range(0,golem_index):
         golem[i].draw()
     for character1 in character_create1:
         character1.update(frame_time)
-        character1.draw()
+        character1.draw_walk()
     for character2 in character_create2:
         character2.update(frame_time)
-        character2.draw()
+        character2.draw_walk()
     for character3 in character_create3:
         character3.update(frame_time)
-        character3.draw()
+        character3.draw_walk()
     for character4 in character_create4:
         character4.update(frame_time)
-        character4.draw()
+        character4.draw_walk()
 
 
     update_canvas()

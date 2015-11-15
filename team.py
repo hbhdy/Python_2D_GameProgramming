@@ -51,10 +51,12 @@ class Character1:
             self.state = self.WALK
 
 
-    def draw(self):
-        #self.die.clip_draw(self.die_frame *384 , 0,384, 384, 200, 300)
+    def draw_die(self):
+        self.die.clip_draw(self.frame *384 , 0,384, 384, self.x, 300)
+    def draw_attack(self):
+        self.attack.clip_draw(self.frame *288 , 0, 288, 288, self.x, 600)
+    def draw_walk(self):
         self.walk.clip_draw(self.frame *288 , 0,  288, 288, self.x, 206)
-        #self.attack.clip_draw(self.attack_frame *288 , 0, 288, 288, 200, 600)
 
 class Character2:
     PIXEL_PER_METER = (10.0 / 0.1)           # 10 pixel 10 cm
@@ -98,10 +100,12 @@ class Character2:
             self.start = 0.8
             self.x = 100
             self.state = self.WALK
-    def draw(self):
-       # self.die.clip_draw(self.die_frame *384 , 0,384, 384, 300, 300)
+    def draw_die(self):
+        self.die.clip_draw(self.frame *384 , 0,384, 384, self.x, 300)
+    def draw_walk(self):
         self.walk.clip_draw(self.frame *288 , 0,  288, 288, self.x, 205)
-        #self.attack.clip_draw(self.attack_frame *288 , 0, 288, 288, 300, 600)
+    def draw_attack(self):
+        self.attack.clip_draw(self.frame *288 , 0, 288, 288, self.x, 600)
 
 class Character3:
     PIXEL_PER_METER = (10.0 / 0.1)           # 10 pixel 10 cm
@@ -146,10 +150,12 @@ class Character3:
 
 
 
-    def draw(self):
-        #self.die.clip_draw(self.die_frame *384 , 0,384, 384, 500, 300)
+    def draw_die(self):
+        self.die.clip_draw(self.frame *384 , 0,384, 384, self.x, 300)
+    def draw_walk(self):
         self.walk.clip_draw(self.frame *288 , 0,  288, 288, self.x, 205)
-        #self.attack.clip_draw(self.frame *288 , 0, 288, 288, self.x, 205)
+    def draw_attack(self):
+        self.attack.clip_draw(self.frame *288 , 0, 288, 288, self.x, 205)
 
 class Character4:
     PIXEL_PER_METER = (10.0 / 0.1)           # 10 pixel 10 cm
@@ -193,7 +199,9 @@ class Character4:
             self.start=0.8
             self.x = 100
             self.state = self.WALK
-    def draw(self):
-        #self.die.clip_draw(self.die_frame *384 , 0,384, 384, 200,300)
+    def draw_die(self):
+        self.die.clip_draw(self.frame *384 , 0,384, 384, self.x,300)
+    def draw_walk(self):
         self.walk.clip_draw(self.frame *288 , 0,  288, 288, self.x, 200)
-        #self.attack.clip_draw(self.attack_frame *288 , 0, 288, 288, 600, 600)
+    def draw_attack(self):
+        self.attack.clip_draw(self.frame *288 , 0, 288, 288, self.x, 600)
