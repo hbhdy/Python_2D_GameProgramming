@@ -34,7 +34,7 @@ class Background:
 def enter():
     global background
     global vampire,skeleton,golem
-    global GameStart_Time,golem_index
+    global GameStart_Time,enemy_index
     global character1,character2,character3,character4
     global characterUI
     global character_create1
@@ -54,7 +54,7 @@ def enter():
     skeleton=Skeleton()
     golem=[]
     golem.append(Golem())
-    golem_index = 0
+    enemy_index = 0
     GameStart_Time = 0
     GameStart_Time = time.time()
     character1=Character1()
@@ -65,12 +65,12 @@ def enter():
     characterUI=load_image('UI\\characterUI.png')
 
 def monster_create_Time():
-    global GameStart_Time, GameEnd_Time, golem_index, golem
+    global GameStart_Time, GameEnd_Time, enemy_index, golem
     GameEnd_Time = time.time()
     temp_Time = int(GameEnd_Time - GameStart_Time)
-    if( int(GameEnd_Time - GameStart_Time) == 20 ):
+    if( int(GameEnd_Time - GameStart_Time) == 5 ):
         golem.append(Golem())
-        golem_index += 1
+        enemy_index += 1
         GameStart_Time = time.time()
         print(temp_Time)
         print(golem_index)
@@ -139,14 +139,13 @@ def handle_events(frame_time):
 
 
 def update(frame_time):
-    global golem_index
-
+    global enemy_index
 
     # zombie.update(frame_time)
     vampire.update()
     skeleton.update()
-    for i in range(0,golem_index):
-        golem[i].update()
+    for i in range(0,enemy_index):
+        golem[i].update(frame_time)
     character1.update(frame_time)
     character2.update(frame_time)
     character3.update(frame_time)
@@ -157,7 +156,7 @@ def update(frame_time):
 
 
 def draw(frame_time):
-    global golem_index
+    global enemy_index
 
     clear_canvas()
     background.draw()
@@ -166,8 +165,8 @@ def draw(frame_time):
     # zombie.draw()
     vampire.draw_appear()
     skeleton.draw_appear()
-    for i in range(0,golem_index):
-        golem[i].draw()
+    for i in range(0,enemy_index):
+        golem[i].draw_appear()
     for character1 in character_create1:
         character1.update(frame_time)
         character1.draw_walk()

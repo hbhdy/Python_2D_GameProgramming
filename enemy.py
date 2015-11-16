@@ -5,6 +5,16 @@ from pico2d import *
 
 
 class Zombie:
+    PIXEL_PER_METER = (10.0 / 0.1)           # 10 pixel 10 cm
+    RUN_SPEED_KMPH = 5.0                    # Km / Hour
+    RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
+    RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
+    RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
+
+    TIME_PER_ACTION = 0.5
+    ACTION_PER_TIME = 0.5 / TIME_PER_ACTION
+    FRAMES_PER_ACTION = 6
+    WALK, ATTACK, APPEAR, DIE = 3,2,1,0
     def __init__(self):
         self.x=1500
         self.frame=0
@@ -26,15 +36,24 @@ class Zombie:
         self.attack_frame += Zombie.FRAMES_PER_ACTION * Zombie.ACTION_PER_TIME * frame_time
         self.appear_frame += Zombie.FRAMES_PER_ACTION * Zombie.ACTION_PER_TIME * frame_time
         self.die_frame += Zombie.FRAMES_PER_ACTION * Zombie.ACTION_PER_TIME * frame_time
+
         if self.state==self.APPEAR:
             self.appear_frame=(self.appear_frame+1)%11
-        if self.state==self.DIE:
-            self.die_frame=(self.die_frame+1)%8
         if self.state==self.WALK:
             self.walk_frame =(self.walk_frame+1)%10
+        if self.state==self.DIE:
+            self.die_frame=(self.die_frame+1)%8
         if self.state==self.ATTACK:
             self.attack_frame=(self.attack_frame+1)%7
-        self.x-=(self.start*distance)
+
+        if self.state==self.APPEAR:
+            self.start=0
+            self.state=self.WALK
+        if self.state==self.WALK:
+            self.start=1
+
+
+
 
 
 
@@ -50,8 +69,10 @@ class Zombie:
 
 
 class Vampire:
+    WALK, ATTACK, APPEAR, DIE = 3,2,1,0
     def __init__(self):
         self.x=1400
+        self.state=self.APPEAR
         self.die=load_image("resource\\enemy\\vampire\\die.png")
         self.walk=load_image("resource\\enemy\\vampire\\walk.png")
         self.attack=load_image("resource\\enemy\\vampire\\attack.png")
@@ -63,10 +84,15 @@ class Vampire:
         self.appear_frame=0
 
     def update(self):
+        if self.state==self.APPEAR:
+            self.appear_frame=(self.appear_frame+1)%8
+            if self.state==self.APPEAR:
+                self.state=self.WALK
+                self.walk_frame = (self.walk_frame+1)%5
+                self.x-=10
         self.die_frame=(self.die_frame+1)%8
-        self.walk_frame = (self.walk_frame+1)%5
         self.attack_frame=(self.attack_frame+1)%9
-        self.appear_frame=(self.appear_frame+1)%8
+
 
     def draw_die(self):
         self.die.clip_draw(self.die_frame *192 , 0, 192, 220, self.x, 500)
@@ -107,8 +133,21 @@ class Skeleton:
         self.appear.clip_draw(self.appear_frame *172 , 0, 172, 220, self.x, 300)
 
 class Golem:
+    PIXEL_PER_METER = (10.0 / 0.1)           # 10 pixel 10 cm
+    RUN_SPEED_KMPH = 5.0                    # Km / Hour
+    RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
+    RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
+    RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
+
+    TIME_PER_ACTION = 0.5
+    ACTION_PER_TIME = 0.5 / TIME_PER_ACTION
+    FRAMES_PER_ACTION = 6
+    WALK, ATTACK, APPEAR, DIE = 3,2,1,0
+
     def __init__(self):
         self.x=1400
+        self.start=0
+        self.state=self.APPEAR
         self.die=load_image("resource\\enemy\\golem\\die.png")
         self.walk=load_image("resource\\enemy\\golem\\walk.png")
         self.attack=load_image("resource\\enemy\\golem\\attack.png")
@@ -119,12 +158,21 @@ class Golem:
         self.attack_frame=0
         self.appear_frame=0
 
-    def update(self):
-        self.die_frame=(self.die_frame+1)%6
-        self.walk_frame = (self.walk_frame+1)%6
-        self.x -=10
-        self.attack_frame=(self.attack_frame+1)%6
-        self.appear_frame=(self.appear_frame+1)%8
+    def update(self,frame_time):
+        distance = Zombie.RUN_SPEED_PPS * frame_time
+        self.walk_frame += Zombie.FRAMES_PER_ACTION * Zombie.ACTION_PER_TIME * frame_time
+        self.attack_frame += Zombie.FRAMES_PER_ACTION * Zombie.ACTION_PER_TIME * frame_time
+        self.appear_frame += Zombie.FRAMES_PER_ACTION * Zombie.ACTION_PER_TIME * frame_time
+        self.die_frame += Zombie.FRAMES_PER_ACTION * Zombie.ACTION_PER_TIME * frame_time
+        if self.state==self.APPEAR:
+            self.appear_frame=int(self.appear_frame+1)%8
+
+        if self.state==self.WALK:
+            self.walk_frame = int(self.walk_frame+1)%6
+            self.x-=10
+        self.die_frame=int(self.die_frame+1)%6
+        self.attack_frame=int(self.attack_frame+1)%6
+
 
     def draw_die(self):
         self.die.clip_draw(self.die_frame *300 , 0,300, 331, self.x, 500)
