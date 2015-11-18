@@ -80,34 +80,49 @@ class Vampire:
     ACTION_PER_TIME = 0.5 / TIME_PER_ACTION
     FRAMES_PER_ACTION = 8
     WALK, ATTACK, APPEAR, DIE = 3,2,1,0
+    now_state = "Appear"
+    init_Start = 0
+
     def __init__(self):
         self.x=1400
-        self.state=self.WALK
-        self.total_frames = 0.0
-        self.dir = 1
+        # self.state=self.APPEAR
+        self.now_state = "Appear"
+
         self.die=load_image("resource\\enemy\\vampire\\die.png")
         self.walk=load_image("resource\\enemy\\vampire\\walk.png")
         self.attack=load_image("resource\\enemy\\vampire\\attack.png")
         self.appear=load_image("resource\\enemy\\vampire\\appear.png")
 
+        self.total_frames=0.0
         self.die_frame=0
         self.walk_frame=0
         self.attack_frame=0
         self.appear_frame=0
+        self.init_Start = 0
+
+
+    def Send_State(self):
+        return self.now_state
+        pass
+
 
     def update(self,frame_time):
-        distance = Vampire.RUN_SPEED_PPS*frame_time
-        self.total_frames+=Vampire.FRAMES_PER_ACTION*Vampire.ACTION_PER_TIME*frame_time
-        self.appear_frame=int(self.total_frames)%8
-        self.walk_frame=int(self.total_frames)%5
-        self.x-=(self.dir *distance)
-        # if  self.state==self.APPEAR:
-        #     self.appear_frame=(self.appear_frame+1)%8
+        distance = Vampire.RUN_SPEED_PPS * frame_time
+        self.total_frames += Vampire.FRAMES_PER_ACTION * Vampire.ACTION_PER_TIME * frame_time
 
-        # self.walk_frame = (self.walk_frame+1)%5
-        self.die_frame=(self.die_frame+1)%8
+        if self.now_state == "Appear":
+            self.appear_frame = int(self.total_frames)%8
+            if ( self.appear_frame == 7  and self.init_Start >= 2):
+                self.now_state = "Walk"
+            else:
+                self.init_Start += 1
 
-        #self.attack_frame=(self.attack_frame+1)%9
+        if self.now_state == "Walk":
+            self.walk_frame = int(self.total_frames)%5
+            self.x-=distance
+        #
+        # self.die_frame=(self.die_frame+1)%8
+        # self.attack_frame=(self.attack_frame+1)%9
 
     def draw_die(self):
         self.die.clip_draw(self.die_frame *192 , 0, 192, 220, self.x, 500)
@@ -121,6 +136,7 @@ class Vampire:
 class Skeleton:
     def __init__(self):
         self.x=1400
+        self.now_state="Appear"
         self.die=load_image("resource\\enemy\\skeleton\\die.png")
         self.walk=load_image("resource\\enemy\\skeleton\\walk.png")
         self.attack=load_image("resource\\enemy\\skeleton\\attack.png")
@@ -130,6 +146,7 @@ class Skeleton:
         self.walk_frame=0
         self.attack_frame=0
         self.appear_frame=0
+        self.init_Start = 0
 
     def update(self):
         self.die_frame=(self.die_frame+1)%8
@@ -158,6 +175,8 @@ class Golem:
     ACTION_PER_TIME = 0.5 / TIME_PER_ACTION
     FRAMES_PER_ACTION = 8
     WALK, ATTACK, APPEAR, DIE = 3,2,1,0
+    now_state = "Appear"
+    init_Start = 0
 
     def __init__(self):
         self.x=1400
@@ -173,18 +192,25 @@ class Golem:
         self.attack_frame=0
         self.appear_frame=0
 
-    def update(self,frame_time):
-        distance = Zombie.RUN_SPEED_PPS * frame_time
-        self.total_frames += Zombie.FRAMES_PER_ACTION * Zombie.ACTION_PER_TIME * frame_time
-        self.total_frames += Zombie.FRAMES_PER_ACTION * Zombie.ACTION_PER_TIME * frame_time
-        self.total_frames += Zombie.FRAMES_PER_ACTION * Zombie.ACTION_PER_TIME * frame_time
-        self.total_frames += Zombie.FRAMES_PER_ACTION * Zombie.ACTION_PER_TIME * frame_time
-        if self.state==self.APPEAR:
-            self.appear_frame=int(self.total_frames)%8
+    def Send_State(self):
+        return self.now_state
 
-        if self.state==self.WALK:
+
+    def update(self,frame_time):
+        distance = Golem.RUN_SPEED_PPS * frame_time
+        self.total_frames += Golem.FRAMES_PER_ACTION * Golem.ACTION_PER_TIME * frame_time
+
+        if self.now_state == "Appear":
+            self.appear_frame = int(self.total_frames)%8
+            if ( self.appear_frame == 7  and self.init_Start >= 2):
+                self.now_state = "Walk"
+            else:
+                self.init_Start += 1
+
+        if self.now_state == "Walk":
             self.walk_frame = int(self.total_frames)%6
-        self.x-=(self.start*distance)
+            self.x-=distance
+
         # self.die_frame=int(self.die_frame)%6
         # self.attack_frame=int(self.attack_frame)%6
 

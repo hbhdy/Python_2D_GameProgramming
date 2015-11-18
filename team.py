@@ -158,7 +158,7 @@ class Character3:
         self.attack.clip_draw(self.frame *288 , 0, 288, 288, self.x, 205)
 
 class Character4:
-    PIXEL_PER_METER = (10.0 / 0.1)           # 10 pixel 10 cm
+    PIXEL_PER_METER = (10.0 / 0.3)           # 10 pixel 10 cm
     RUN_SPEED_KMPH = 5.0                    # Km / Hour
     RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
     RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
@@ -167,8 +167,8 @@ class Character4:
     WALK,ATTACK,DIE=1,2,3
 
     TIME_PER_ACTION = 0.5
-    ACTION_PER_TIME = 0.5 / TIME_PER_ACTION
-    FRAMES_PER_ACTION = 6
+    ACTION_PER_TIME = 1.0/ TIME_PER_ACTION
+    FRAMES_PER_ACTION = 8
 
     def __init__(self):
         self.x=160
@@ -191,14 +191,7 @@ class Character4:
             self.frame=int(self.total_frames)%6
         self.x+=(self.start*distance)
 
-        if self.x > 1500:
-            self.start = 0
-            self.x = random.randint(1100, 1103)
-            self.state = self.ATTACK
-        elif self.x < 100:
-            self.start=0.8
-            self.x = 100
-            self.state = self.WALK
+
     def draw_die(self):
         self.die.clip_draw(self.frame *384 , 0,384, 384, self.x,300)
     def draw_walk(self):
