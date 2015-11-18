@@ -15,7 +15,8 @@ name = "MainState"
 
 background=None
 
-golem_index = 0
+enemy_index = 0
+team_index=0
 GameStart_Time = 0
 GameEnd_Time = 0
 
@@ -73,10 +74,11 @@ def monster_create_Time():
         enemy_index += 1
         GameStart_Time = time.time()
         print(temp_Time)
-        print(golem_index)
+        print(enemy_index)
 
 def exit():
-    global background,characterUI,ch2,ch3,ch4
+    global background,characterU
+    global character1,character2,character3,character4
     global vampire,golem,skeleton
     del(characterUI)
     del(background)
@@ -142,7 +144,7 @@ def update(frame_time):
     global enemy_index
 
     # zombie.update(frame_time)
-    vampire.update()
+    vampire.update(frame_time)
     skeleton.update()
     for i in range(0,enemy_index):
         golem[i].update(frame_time)
@@ -163,10 +165,13 @@ def draw(frame_time):
     characterUI.draw(250,735)
 
     # zombie.draw()
-    vampire.draw_appear()
+    vampire.draw_walk()
+
+
+
     skeleton.draw_appear()
     for i in range(0,enemy_index):
-        golem[i].draw_appear()
+        golem[i].draw_walk()
     for character1 in character_create1:
         character1.update(frame_time)
         character1.draw_walk()
