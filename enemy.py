@@ -37,13 +37,14 @@ class Zombie:
     def Send_State(self):
         return self.now_state
 
+
     def update(self,frame_time):
         distance = Zombie.RUN_SPEED_PPS * frame_time
         self.total_frames += Zombie.FRAMES_PER_ACTION * Zombie.ACTION_PER_TIME * frame_time
 
         if self.now_state == "Appear":
             self.appear_frame = int(self.total_frames)%11
-            if ( self.appear_frame == 7  and self.init_Start >= 2):
+            if ( self.appear_frame == 10  and self.init_Start >= 2):
                 self.now_state = "Walk"
             else:
                 self.init_Start += 1
@@ -165,7 +166,7 @@ class Skeleton:
 
         if self.now_state == "Appear":
             self.appear_frame = int(self.total_frames)%10
-            if ( self.appear_frame == 7  and self.init_Start >= 2):
+            if ( self.appear_frame == 9  and self.init_Start >= 2):
                 self.now_state = "Walk"
             else:
                 self.init_Start += 1
