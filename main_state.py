@@ -74,10 +74,10 @@ def enter():
     golem_StartTime =0
     enemy_index = 0
 
-    zombie_StartTime = zombie.time()
-    vampire_StartTime = vampire.time()
-    skeleton_StartTime = skeleton.time()
-    golem_StartTime = golem.time()
+    zombie_StartTime = time.time()
+    vampire_StartTime = time.time()
+    skeleton_StartTime = time.time()
+    golem_StartTime = time.time()
 
     character1=Character1()
     character2=Character2()
@@ -92,34 +92,31 @@ def monster_create_Time():
     global zombie_StartTime,vampire_StartTime,skeleton_StartTime,golem_StartTime
     global zombie_EndTime,vampire_EndTime,skeleton_EndTime,golem_EndTime
     global zombie,vampire,skeleton,golem,enemy_index
-    zombie_EndTime = zombie.time()
-    vampire_EndTime = vampire.time()
-    skeleton_EndTime = skeleton.time()
-    golem_EndTime = golem.time()
+    zombie_EndTime = time.time()
+    vampire_EndTime = time.time()
+    skeleton_EndTime = time.time()
+    golem_EndTime = time.time()
 
-    temp_Time = int(zombie_EndTime - zombie_StartTime)
+    zombie_checktime = int(zombie_EndTime - zombie_StartTime)
     if( int(zombie_EndTime - zombie_StartTime) == 3 ):
         zombie.append(Zombie())
         enemy_index += 1
-        zombie_StartTime = zombie.time()
-    _Time = int(zombie_EndTime - zombie_StartTime)
+        zombie_StartTime = time.time()
+    vampire_checktime = int(zombie_EndTime - zombie_StartTime)
     if( int(vampire_EndTime - vampire_StartTime) == 13):
         vampire.append(Vampire())
         enemy_index+=1
-        vampire_StartTime=vampire.time()
-    temp3_Time = int(zombie_EndTime - zombie_StartTime)
+        vampire_StartTime = time.time()
+    skeleton_checktime = int(zombie_EndTime - zombie_StartTime)
     if( int(skeleton_EndTime - skeleton_StartTime) == 20 ):
         skeleton.append(Zombie())
         enemy_index += 1
-        skeleton_StartTime = skeleton.time()
-    temp4_Time = int(zombie_EndTime - zombie_StartTime)
+        skeleton_StartTime = time.time()
+    golem_checktime = int(zombie_EndTime - zombie_StartTime)
     if( int(golem_EndTime - golem_StartTime) == 30 ):
         golem.append(Zombie())
         enemy_index += 1
-        golem_StartTime = golem.time()
-
-
-    print(temp1_Time)
+        golem_StartTime = time.time()
     print(enemy_index)
 
 def exit():
