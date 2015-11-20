@@ -54,11 +54,16 @@ def enter():
     character_create3=[]
     character_create4=[]
     background = Background()
-    # zombie = Zombie()
-    vampire = Vampire()
-    skeleton=Skeleton()
+
+    zombie=[]
+    zombie.append(Zombie())
+    vampire=[]
+    vampire.append(Vampire())
+    skeleton=[]
+    skeleton.append(Skeleton())
     golem=[]
     golem.append(Golem())
+
     enemy_index = 0
     GameStart_Time = 0
     GameStart_Time = time.time()
@@ -72,13 +77,18 @@ def enter():
 
 
 def monster_create_Time():
-    global GameStart_Time, GameEnd_Time, enemy_index, golem
+    global GameStart_Time, GameEnd_Time, enemy_index
+    global zombie,vampire,skeleton,golem
     GameEnd_Time = time.time()
     temp_Time = int(GameEnd_Time - GameStart_Time)
-    if( int(GameEnd_Time - GameStart_Time) == 5 ):
-        golem.append(Golem())
+    if( int(GameEnd_Time - GameStart_Time) == 7 ):
+        zombie.append(Golem())
         enemy_index += 1
         GameStart_Time = time.time()
+    if(int(GameEnd_Time-GameStart_Time)==13):
+        vampire.append(Vampire())
+        enemy_index+=1
+        GameStart_Time=present.time()
         print(temp_Time)
         print(enemy_index)
 
@@ -92,7 +102,7 @@ def exit():
     del(character2)
     del(character3)
     del(character4)
-    # del(zombie)
+    del(zombie)
     del(skeleton)
     del(vampire)
     del(golem)
@@ -149,7 +159,7 @@ def handle_events(frame_time):
 def update(frame_time):
     global enemy_index, Vampire_State
 
-    # zombie.update(frame_time)
+    zombie.update(frame_time)
     vampire.update(frame_time)
     Vampire_State = vampire.Send_State()
 
