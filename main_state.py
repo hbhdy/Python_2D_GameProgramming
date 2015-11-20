@@ -17,8 +17,15 @@ background=None
 
 enemy_index = 0
 team_index=0
-GameStart_Time = 0
-GameEnd_Time = 0
+
+zombie_StartTime =0
+vampire_StartTime =0
+skeleton_StartTime =0
+golem_StartTime =0
+zombie_EndTime =0
+vampire_EndTime =0
+skeleton_EndTime =0
+golem_EndTime =0
 
 Zombie_State= "Appear"
 Vampire_State = "Appear"
@@ -34,20 +41,17 @@ class Background:
     def draw(self):
         self.image.draw_to_origin(0,0,1600,800)
 
-
-
-
 def enter():
     global background
     global zombie,vampire,skeleton,golem
-    global GameStart_Time,enemy_index
+    global enemy_index
     global character1,character2,character3,character4
     global characterUI
     global character_create1
     global character_create2
     global character_create3
     global character_create4
-
+    global zombie_StartTime,vampire_StartTime,skeleton_StartTime,golem_StartTime
 
     character_create1=[]
     character_create2=[]
@@ -64,9 +68,17 @@ def enter():
     golem=[]
     golem.append(Golem())
 
+    zombie_StartTime =0
+    vampire_StartTime =0
+    skeleton_StartTime =0
+    golem_StartTime =0
     enemy_index = 0
-    GameStart_Time = 0
-    GameStart_Time = time.time()
+
+    zombie_StartTime = zombie.time()
+    vampire_StartTime = vampire.time()
+    skeleton_StartTime = skeleton.time()
+    golem_StartTime = golem.time()
+
     character1=Character1()
     character2=Character2()
     character3=Character3()
@@ -77,25 +89,43 @@ def enter():
 
 
 def monster_create_Time():
-    global GameStart_Time, GameEnd_Time, enemy_index
-    global zombie,vampire,skeleton,golem
-    GameEnd_Time = time.time()
-    temp_Time = int(GameEnd_Time - GameStart_Time)
-    if( int(GameEnd_Time - GameStart_Time) == 7 ):
-        zombie.append(Golem())
+    global zombie_StartTime,vampire_StartTime,skeleton_StartTime,golem_StartTime
+    global zombie_EndTime,vampire_EndTime,skeleton_EndTime,golem_EndTime
+    global zombie,vampire,skeleton,golem,enemy_index
+    zombie_EndTime = zombie.time()
+    vampire_EndTime = vampire.time()
+    skeleton_EndTime = skeleton.time()
+    golem_EndTime = golem.time()
+
+    temp_Time = int(zombie_EndTime - zombie_StartTime)
+    if( int(zombie_EndTime - zombie_StartTime) == 3 ):
+        zombie.append(Zombie())
         enemy_index += 1
-        GameStart_Time = time.time()
-    if(int(GameEnd_Time-GameStart_Time)==13):
+        zombie_StartTime = zombie.time()
+    _Time = int(zombie_EndTime - zombie_StartTime)
+    if( int(vampire_EndTime - vampire_StartTime) == 13):
         vampire.append(Vampire())
         enemy_index+=1
-        GameStart_Time=present.time()
-        print(temp_Time)
-        print(enemy_index)
+        vampire_StartTime=vampire.time()
+    temp3_Time = int(zombie_EndTime - zombie_StartTime)
+    if( int(skeleton_EndTime - skeleton_StartTime) == 20 ):
+        skeleton.append(Zombie())
+        enemy_index += 1
+        skeleton_StartTime = skeleton.time()
+    temp4_Time = int(zombie_EndTime - zombie_StartTime)
+    if( int(golem_EndTime - golem_StartTime) == 30 ):
+        golem.append(Zombie())
+        enemy_index += 1
+        golem_StartTime = golem.time()
+
+
+    print(temp1_Time)
+    print(enemy_index)
 
 def exit():
     global background,characterU
     global character1,character2,character3,character4
-    global vampire,golem,skeleton
+    global zombie,vampire,golem,skeleton
     del(characterUI)
     del(background)
     del(character1)
@@ -157,15 +187,22 @@ def handle_events(frame_time):
 
 
 def update(frame_time):
-    global enemy_index, Vampire_State
+    global enemy_index
+    global Zombie_State,Vampire_State,Skeleton_State,Golem_State
 
-    zombie.update(frame_time)
-    vampire.update(frame_time)
-    Vampire_State = vampire.Send_State()
+    for x in range(0,enemy_index):
+        Zombie_State = Zombie.Send_State()
+        zombie[x].update(frame_time)
+    for y in range(0,enemy_index):
+        Vampire_State = Vampire.Send_State()
+        vampire[y].update(frame_time)
+    for w in range(0,enemy_index):
+        Skeleton_State = Skeleton.Send_State()
+        skeleton[w].update(frame_time)
+    for z in range(0,enemy_index):
+        Golem_State = Golem.Send_State()
+        golem[z].update(frame_time)
 
-    skeleton.update()
-    for i in range(0,enemy_index):
-        golem[i].update(frame_time)
     character1.update(frame_time)
     character2.update(frame_time)
     character3.update(frame_time)
@@ -176,26 +213,33 @@ def update(frame_time):
 
 
 def draw(frame_time):
-    global enemy_index, Vampire_State
+    global enemy_index
+    global Zombie_State,Vampire_State,Skeleton_State,Golem_State
 
     clear_canvas()
     background.draw()
     characterUI.draw(250,735)
 
-    # zombie.draw()
-    if Vampire_State == "Appear":
-        vampire.draw_appear()
-    if Vampire_State == "Walk":
-        vampire.draw_walk()
-
-
-
-    skeleton.draw_appear()
-    for i in range(0,enemy_index):
+    for x in range(0,enemy_index):
+        if Zombie_State=="Appear":
+            zombie[x].draw_appear()
+        if Zombie_State=="Walk":
+            zombie[x].draw_walk()
+    for y in range(0,enemy_index):
+        if Vampire_State == "Appear":
+            vampire[y].draw_appear()
+        if Vampire_State == "Walk":
+            vampire[y].draw_walk()
+    for w in range(0,enemy_index):
+        if Skeleton_State=="Appear":
+            skeleton[w].draw_appear()
+        if Skeleton_State=="Walk":
+            skeleton[w].draw_walk()
+    for z in range(0,enemy_index):
         if Golem_State=="Appear":
-            golem[i].draw_appear()
+            golem[z].draw_appear()
         if Golem_State=="Walk":
-            golem[i].draw_walk()
+            golem[z].draw_walk()
 
     for character1 in character_create1:
         character1.update(frame_time)
@@ -210,9 +254,7 @@ def draw(frame_time):
         character4.update(frame_time)
         character4.draw_walk()
 
-
     update_canvas()
-    pass
 
 
 

@@ -179,13 +179,13 @@ class Skeleton:
 
 
     def draw_die(self):
-        self.die.clip_draw(self.die_frame *275 , 0,275, 220, self.x, 500)
+        self.die.clip_draw(self.die_frame *275 , 0,275, 220, self.x, 170)
     def draw_walk(self):
         self.walk.clip_draw(self.walk_frame *135 , 0, 135, 219, self.x, 170)
     def draw_attack(self):
-        self.attack.clip_draw(self.attack_frame *185 , 0, 185, 217, self.x, 700)
+        self.attack.clip_draw(self.attack_frame *185 , 0, 185, 217, self.x, 170)
     def draw_appear(self):
-        self.appear.clip_draw(self.appear_frame *172 , 0, 172, 220, self.x, 300)
+        self.appear.clip_draw(self.appear_frame *172 , 0, 172, 220, self.x, 170)
 
 class Golem:
 
@@ -242,7 +242,7 @@ class Golem:
 
 
     def draw_die(self):
-        self.die.clip_draw(int(self.die_frame) *300 , 0,300, 331, self.x, 190)
+        self.die.clip_draw(self.die_frame *300 , 0,300, 331, self.x, 190)
     def draw_walk(self):
         self.walk.clip_draw(self.walk_frame *320 , 0, 320, 245, self.x, 190)
     def draw_attack(self):
