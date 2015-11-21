@@ -30,7 +30,7 @@ vampire_EndTime =0
 skeleton_EndTime =0
 golem_EndTime =0
 
-Zombie_State= "Appear"
+Zombie_State= "Walk"
 Vampire_State = "Appear"
 Skeleton_State="Appear"
 Golem_State="Appear"
@@ -106,17 +106,17 @@ def monster_create_Time():
     golem_EndTime = time.time()
 
     zombie_checktime = int(zombie_EndTime - zombie_StartTime)
-    if( int(zombie_EndTime - zombie_StartTime) == 3 ):
+    if( int(zombie_EndTime - zombie_StartTime) == 2 ):
         zombie.append(Zombie())
         enemy1_index += 1
         zombie_StartTime = time.time()
     vampire_checktime = int(vampire_EndTime - vampire_StartTime)
-    if( int(vampire_EndTime - vampire_StartTime) == 2):
+    if( int(vampire_EndTime - vampire_StartTime) == 20):
         vampire.append(Vampire())
         enemy2_index+=1
         vampire_StartTime = time.time()
     skeleton_checktime = int(skeleton_EndTime - skeleton_StartTime)
-    if( int(skeleton_EndTime - skeleton_StartTime) == 20 ):
+    if( int(skeleton_EndTime - skeleton_StartTime) == 25 ):
         skeleton.append(Zombie())
         enemy3_index += 1
         skeleton_StartTime = time.time()
@@ -189,7 +189,16 @@ def handle_events(frame_time):
         elif (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT):
              mouse_click()
 
+def collide(a, b):
+    left_a,bottom_a,right_a,top_a=a.get_bb()
+    left_b,bottom_b,right_b,top_b=b.get_bb()
 
+    if left_a>right_b : return False
+    if right_a<left_b : return False
+    if top_a< bottom_b : return False
+    if bottom_a>top_b : return False
+
+    return True
 
 def update(frame_time):
     global enemy1_index,enemy2_index,enemy3_index,enemy4_index
@@ -213,6 +222,14 @@ def update(frame_time):
     character2.update(frame_time)
     character3.update(frame_time)
     character4.update(frame_time)
+
+    # for characters2 in character2:
+    #     for zombies in zombie.append():
+    #         if collide(zombies,characters2):
+    #             characters2.collide=True
+    #             zombies.collide=True
+
+
     monster_create_Time()
     pass
 
@@ -258,6 +275,9 @@ def draw(frame_time):
     for character4 in character_create4:
         character4.update(frame_time)
         character4.draw_walk()
+
+
+
 
     update_canvas()
 

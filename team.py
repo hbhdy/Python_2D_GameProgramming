@@ -70,6 +70,8 @@ class Character2:
 
     def __init__(self):
         self.x=120
+        self.hp=70
+        self.collide=False
 
         self.total_frames=0.0
         self.die_frame=0
@@ -88,11 +90,23 @@ class Character2:
 
         if self.state==self.WALK:
             self.walk_frame=int(self.total_frames)%10
+            self.x+=(self.start*distance)
         if self.state==self.ATTACK:
             self.attack_frame=int(self.total_frames)%7
         if self.state==self.DIE:
             self.die_frame=int(self.total_frames)&8
-        self.x+=(self.start*distance)
+        # self.x+=(self.start*distance)
+
+        if self.collide==True:
+            self.state=self.ATTACK
+            self.start=0
+            self.attack_frame=int(self.total_frames)%7
+
+
+    def get_bb(self):
+        return self.x-144,self.y-144,self.x+144,self.y+144
+    def draw_bb(self):
+        draw_rectangle(*self.get_bb())
 
     def draw_die(self):
         self.die.clip_draw(self.die_frame *384 , 0,384, 384, self.x, 205)

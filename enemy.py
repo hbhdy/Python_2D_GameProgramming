@@ -15,18 +15,21 @@ class Zombie:
     ACTION_PER_TIME = 0.5 / TIME_PER_ACTION
     FRAMES_PER_ACTION = 8
 
-    now_state = "Appear"
+    now_state = "Walk"
     init_Start = 0
 
     def __init__(self):
         self.x=1400
-        self.now_state = "Appear"
+        self.now_state = "Walk"
+        self.hp=50
+        self.collide=False
 
         self.die=load_image("resource\\enemy\\zombie\\die.png")
         self.walk=load_image("resource\\enemy\\zombie\\walk.png")
         self.attack=load_image("resource\\enemy\\zombie\\attack.png")
         self.appear=load_image("resource\\enemy\\zombie\\appear.png")
 
+        self.start=1
         self.total_frames=0.0
         self.die_frame=0
         self.walk_frame=0
@@ -51,10 +54,20 @@ class Zombie:
 
         if self.now_state == "Walk":
             self.walk_frame = int(self.total_frames)%10
-            self.x-=distance
+            self.x-=(self.start*distance)
+
+        if self.collide==True:
+            self.start=0
+            self.attack_frame=(self.attack_frame+1)%7
+
 
         # self.die_frame=(self.die_frame+1)%8
         # self.attack_frame=(self.attack_frame+1)%7
+
+    def get_bb(self):
+        return self.x-70,self.y-70,self.x+70,self.y+70
+    def draw_bb(self):
+        draw_rectangle(*self.get_bb())
 
     def draw_die(self):
         self.die.clip_draw(self.die_frame *325, 0, 325, 214,self.x, 170)
