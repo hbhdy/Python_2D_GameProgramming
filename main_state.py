@@ -9,11 +9,11 @@ from team import *
 from pico2d import *
 
 import game_framework
-import start_state
 
 name = "MainState"
 
 background=None
+bgm=None
 
 enemy1_index = 0
 enemy2_index = 0
@@ -55,6 +55,13 @@ def enter():
     global character_create3
     global character_create4
     global zombie_StartTime,vampire_StartTime,skeleton_StartTime,golem_StartTime
+    global bgm
+
+    bgm=load_music('sound/main_BGM.mp3')
+    bgm.set_volume(64)
+    bgm.repeat_play()
+
+
 
     character_create1=[]
     character_create2=[]
@@ -106,12 +113,12 @@ def monster_create_Time():
     golem_EndTime = time.time()
 
     zombie_checktime = int(zombie_EndTime - zombie_StartTime)
-    if( int(zombie_EndTime - zombie_StartTime) == 2 ):
+    if( int(zombie_EndTime - zombie_StartTime) == 4 ):
         zombie.append(Zombie())
         enemy1_index += 1
         zombie_StartTime = time.time()
     vampire_checktime = int(vampire_EndTime - vampire_StartTime)
-    if( int(vampire_EndTime - vampire_StartTime) == 20):
+    if( int(vampire_EndTime - vampire_StartTime) == 8):
         vampire.append(Vampire())
         enemy2_index+=1
         vampire_StartTime = time.time()
@@ -130,7 +137,7 @@ def monster_create_Time():
 def exit():
     global background,characterU
     global character1,character2,character3,character4
-    global zombie,vampire,golem,skeleton
+    global zombie,vampire,golem,skeleton,bgm
     del(characterUI)
     del(background)
     del(character1)
@@ -141,6 +148,7 @@ def exit():
     del(skeleton)
     del(vampire)
     del(golem)
+    del(bgm)
 
 def pause():
     pass
@@ -182,8 +190,6 @@ def handle_events(frame_time):
     for event in events:
         if event.type == SDL_QUIT or event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             game_framework.quit()
-        elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
-                game_framework.change_state(start_state)
         elif event.type == SDL_MOUSEMOTION:
             mouse_x,mouse_y = event.x,event.y
         elif (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT):

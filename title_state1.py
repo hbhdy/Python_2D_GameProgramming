@@ -5,26 +5,26 @@ from pico2d import *
 
 name = "TitleState1"
 image = None
+bgm=None
+
 
 
 def enter():
-    global image
+    global image,bgm
     image=load_image('title_state1.png')
+    bgm=load_music('sound/title_BGM.mp3')
+    bgm.set_volume(64)
+    bgm.play(1)
 
 
 
 def exit():
-    global image
+    global image,bgm
     del(image)
+    del(bgm)
 
 
 def update(frame_time):
-    # global logo_time
-    # logo_time+=frame_time
-    # if(logo_time>1.0):
-    #     logo_time=0
-    #     game_framework.quit()
-    #     game_framework.change_state(main_state)
     pass
 
 
@@ -57,8 +57,6 @@ def handle_events(frame_time):
                      game_framework.change_state(main_state)
                 if 600<mouse_x<800 and 135<mouse_y<250:
                     game_framework.quit()
-
-
 
 
 
