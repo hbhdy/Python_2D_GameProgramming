@@ -1,5 +1,5 @@
 import game_framework
-import main_state
+import title_state1
 from pico2d import *
 
 
@@ -26,7 +26,7 @@ def update(frame_time):
     if(logo_time>1.0):
         logo_time=0
         #game_framework.quit()
-        game_framework.change_state(main_state)
+        game_framework.change_state(title_state1)
 
 
 

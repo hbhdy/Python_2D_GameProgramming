@@ -5,7 +5,6 @@ import time
 
 from enemy import *
 from team import *
-from collide import *
 
 from pico2d import *
 
@@ -221,7 +220,7 @@ def update(frame_time):
     #             character_create2.collide=True
     #             zombie.collide=True
 
-    team_attack(character2,zombie)
+
     monster_create_Time()
     pass
 
