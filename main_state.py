@@ -5,6 +5,7 @@ import time
 
 from enemy import *
 from team import *
+from collide import *
 
 from pico2d import *
 
@@ -160,19 +161,19 @@ def mouse_click():
     if 140<mouse_x<230 and 20 <mouse_y<120:
         character2=Character2()
         if len(character_create2)<50:
-            character_create1.append(character2)
+            character_create2.append(character2)
 
 
     if 260<mouse_x<360 and 20<mouse_y<120:
         character3=Character3()
         if len(character_create3)<50:
-            character_create2.append(character3)
+            character_create3.append(character3)
 
 
     if 380<mouse_x<470 and 20<mouse_y<120:
         character4=Character4()
         if len(character_create4)<50:
-            character_create3.append(character4)
+            character_create4.append(character4)
 
 
 
@@ -189,16 +190,7 @@ def handle_events(frame_time):
         elif (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT):
              mouse_click()
 
-def collide(a, b):
-    left_a,bottom_a,right_a,top_a=a.get_bb()
-    left_b,bottom_b,right_b,top_b=b.get_bb()
 
-    if left_a>right_b : return False
-    if right_a<left_b : return False
-    if top_a< bottom_b : return False
-    if bottom_a>top_b : return False
-
-    return True
 
 def update(frame_time):
     global enemy1_index,enemy2_index,enemy3_index,enemy4_index
@@ -223,13 +215,13 @@ def update(frame_time):
     character3.update(frame_time)
     character4.update(frame_time)
 
-    # for characters2 in character2:
-    #     for zombies in zombie.append():
-    #         if collide(zombies,characters2):
-    #             characters2.collide=True
-    #             zombies.collide=True
+    # for character_create2[len] in character2:
+    #     for zombie[x] in Zombie():
+    #         if collide(zombie,character_create2[len]):
+    #             character_create2.collide=True
+    #             zombie.collide=True
 
-
+    team_attack(character2,zombie)
     monster_create_Time()
     pass
 

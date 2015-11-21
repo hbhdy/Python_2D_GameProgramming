@@ -6,6 +6,7 @@ from pico2d import *
 
 
 class Character1:
+    name="Character1"
     PIXEL_PER_METER = (10.0 / 0.2)           # 10 pixel 20 cm
     RUN_SPEED_KMPH = 5.0                    # Km / Hour
     RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
@@ -46,7 +47,10 @@ class Character1:
             self.die_frame= int(self.total_frames)%7
         self.x+=(self.start*distance)
 
-
+    def get_bb(self):
+        return self.x-144,self.y-144,self.x+144,self.y+144
+    def draw_bb(self):
+        draw_rectangle(*self.get_bb())
 
     def draw_die(self):
         self.die.clip_draw(self.die_frame *384 , 0,384, 384, self.x, 206)
@@ -102,7 +106,6 @@ class Character2:
             self.start=0
             self.attack_frame=int(self.total_frames)%7
 
-
     def get_bb(self):
         return self.x-144,self.y-144,self.x+144,self.y+144
     def draw_bb(self):
@@ -154,6 +157,11 @@ class Character3:
             self.die_frame=int(self.total_frames)%7
         self.x+=(self.start*distance)
 
+    def get_bb(self):
+        return self.x-144,self.y-144,self.x+144,self.y+144
+    def draw_bb(self):
+        draw_rectangle(*self.get_bb())
+
     def draw_die(self):
         self.die.clip_draw(self.die_frame *384 , 0,384, 384, self.x, 205)
     def draw_walk(self):
@@ -200,6 +208,10 @@ class Character4:
             self.die_frame=int(self.total_frames)%6
         self.x+=(self.start*distance)
 
+    def get_bb(self):
+        return self.x-144,self.y-144,self.x+144,self.y+144
+    def draw_bb(self):
+        draw_rectangle(*self.get_bb())
 
     def draw_die(self):
         self.die.clip_draw(self.die_frame *384 , 0,384, 384, self.x,205)

@@ -5,6 +5,7 @@ from pico2d import *
 
 
 class Zombie:
+    name="Zombie"
     PIXEL_PER_METER = (10.0 / 0.2)           # 10 pixel 20 cm
     RUN_SPEED_KMPH = 5.0                    # Km / Hour
     RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
@@ -58,7 +59,7 @@ class Zombie:
 
         if self.collide==True:
             self.start=0
-            self.attack_frame=(self.attack_frame+1)%7
+            self.attack_frame=(self.total_frames+1)%7
 
 
         # self.die_frame=(self.die_frame+1)%8
@@ -130,6 +131,11 @@ class Vampire:
         # self.die_frame=(self.die_frame+1)%8
         # self.attack_frame=(self.attack_frame+1)%9
 
+    def get_bb(self):
+        return self.x-60,self.y-60,self.x+60,self.y+60
+    def draw_bb(self):
+        draw_rectangle(*self.get_bb())
+
     def draw_die(self):
         self.die.clip_draw(self.die_frame *192 , 0, 192, 220, self.x, 170)
     def draw_walk(self):
@@ -190,6 +196,11 @@ class Skeleton:
 
         # self.die_frame=(self.die_frame+1)%8
         # self.attack_frame=(self.attack_frame+1)%8
+
+    def get_bb(self):
+        return self.x-70,self.y-70,self.x+70,self.y+70
+    def draw_bb(self):
+        draw_rectangle(*self.get_bb())
 
 
     def draw_die(self):
@@ -254,6 +265,10 @@ class Golem:
         # self.die_frame=int(self.die_frame)%6
         # self.attack_frame=int(self.attack_frame)%6
 
+    def get_bb(self):
+        return self.x-160,self.y-160,self.x+160,self.y+160
+    def draw_bb(self):
+        draw_rectangle(*self.get_bb())
 
     def draw_die(self):
         self.die.clip_draw(self.die_frame *300 , 0,300, 331, self.x, 190)
