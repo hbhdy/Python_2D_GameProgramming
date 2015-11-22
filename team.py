@@ -6,7 +6,6 @@ from pico2d import *
 
 
 class Character1:
-    name="Character1"
     PIXEL_PER_METER = (10.0 / 0.2)           # 10 pixel 20 cm
     RUN_SPEED_KMPH = 5.0                    # Km / Hour
     RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
@@ -18,37 +17,55 @@ class Character1:
     FRAMES_PER_ACTION = 8
 
     WALK,ATTACK,DIE=1,0,2
+    now_state="Walk"
 
 
     def __init__(self):
         self.x=100
+        self.y=140
 
         self.total_frames=0.0
         self.die_frame=0
         self.walk_frame=0
         self.attack_frame=0
         self.start=1
-        self.state=self.WALK
+        self.now_state = "Walk"
+
 
         self.die=load_image("resource\\team\\ch1\\die.png")
         self.walk=load_image("resource\\team\\ch1\\walk.png")
         self.attack=load_image("resource\\team\\ch1\\attack.png")
 
+    def Send_State(self):
+        return self.now_state
+
+    def Receive_State(self, now_state):
+        self.now_state = now_state
 
     def update(self,frame_time):
         distance=Character1.RUN_SPEED_PPS*frame_time
         self.total_frames+=Character1.FRAMES_PER_ACTION*Character1.ACTION_PER_TIME*frame_time
 
-        if self.state==self.WALK:
+        if self.now_state == "Walk":
             self.walk_frame= int(self.total_frames)%8
-        if self.state==self.ATTACK:
+            self.x+=(self.start*distance)
+
+        if self.now_state == "Attack":
             self.attack_frame= int(self.total_frames)%5
-        if self.state==self.DIE:
+
+        if self.now_state=="Die":
             self.die_frame= int(self.total_frames)%7
-        self.x+=(self.start*distance)
+
+        # if self.state==self.WALK:
+        #     self.walk_frame= int(self.total_frames)%8
+        # if self.state==self.ATTACK:
+        #     self.attack_frame= int(self.total_frames)%5
+        # if self.state==self.DIE:
+        #     self.die_frame= int(self.total_frames)%7
+        # self.x+=(self.start*distance)
 
     def get_bb(self):
-        return self.x-144,self.y-144,self.x+144,self.y+144
+        return self.x-50,self.y-70,self.x+50,self.y+20
     def draw_bb(self):
         draw_rectangle(*self.get_bb())
 
@@ -75,7 +92,7 @@ class Character2:
     def __init__(self):
         self.x=120
         self.hp=70
-        self.collide=False
+
 
         self.total_frames=0.0
         self.die_frame=0
@@ -101,10 +118,6 @@ class Character2:
             self.die_frame=int(self.total_frames)&8
         # self.x+=(self.start*distance)
 
-        if self.collide==True:
-            self.state=self.ATTACK
-            self.start=0
-            self.attack_frame=int(self.total_frames)%7
 
     def get_bb(self):
         return self.x-144,self.y-144,self.x+144,self.y+144

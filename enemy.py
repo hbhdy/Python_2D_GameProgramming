@@ -5,7 +5,6 @@ from pico2d import *
 
 
 class Zombie:
-    name="Zombie"
     PIXEL_PER_METER = (10.0 / 0.2)           # 10 pixel 20 cm
     RUN_SPEED_KMPH = 5.0                    # Km / Hour
     RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
@@ -16,14 +15,15 @@ class Zombie:
     ACTION_PER_TIME = 0.5 / TIME_PER_ACTION
     FRAMES_PER_ACTION = 8
 
-    now_state = "Walk"
+    now_state = "Appear"
     init_Start = 0
 
     def __init__(self):
         self.x=1400
-        self.now_state = "Walk"
+        self.y=140
+        self.now_state = "Appear"
         self.hp=50
-        self.collide=False
+
 
         self.die=load_image("resource\\enemy\\zombie\\die.png")
         self.walk=load_image("resource\\enemy\\zombie\\walk.png")
@@ -41,6 +41,8 @@ class Zombie:
     def Send_State(self):
         return self.now_state
 
+    def Receive_State(self, now_state):
+        self.now_state = now_state
 
     def update(self,frame_time):
         distance = Zombie.RUN_SPEED_PPS * frame_time
@@ -57,16 +59,16 @@ class Zombie:
             self.walk_frame = int(self.total_frames)%10
             self.x-=(self.start*distance)
 
-        if self.collide==True:
+        if self.now_state=="Attack":
             self.start=0
-            self.attack_frame=(self.total_frames+1)%7
+            self.attack_frame=int(self.total_frames)%7
 
 
         # self.die_frame=(self.die_frame+1)%8
         # self.attack_frame=(self.attack_frame+1)%7
 
     def get_bb(self):
-        return self.x-70,self.y-70,self.x+70,self.y+70
+        return self.x-70,self.y-70,self.x+70,self.y+140
     def draw_bb(self):
         draw_rectangle(*self.get_bb())
 
@@ -96,6 +98,7 @@ class Vampire:
 
     def __init__(self):
         self.x=1400
+        self.y=120
         self.now_state = "Appear"
 
         self.die=load_image("resource\\enemy\\vampire\\die.png")
@@ -103,6 +106,7 @@ class Vampire:
         self.attack=load_image("resource\\enemy\\vampire\\attack.png")
         self.appear=load_image("resource\\enemy\\vampire\\appear.png")
 
+        self.start=1
         self.total_frames=0.0
         self.die_frame=0
         self.walk_frame=0
@@ -112,6 +116,9 @@ class Vampire:
 
     def Send_State(self):
         return self.now_state
+
+    def Receive_State(self, now_state):
+        self.now_state = now_state
 
     def update(self,frame_time):
         distance = Vampire.RUN_SPEED_PPS * frame_time
@@ -126,13 +133,16 @@ class Vampire:
 
         if self.now_state == "Walk":
             self.walk_frame = int(self.total_frames)%5
-            self.x-=distance
+            self.x-=(self.start*distance)
 
+        if self.now_state=="Attack":
+            self.start=0
+            self.attack_frame=int(self.total_frames)%9
         # self.die_frame=(self.die_frame+1)%8
-        # self.attack_frame=(self.attack_frame+1)%9
+
 
     def get_bb(self):
-        return self.x-60,self.y-60,self.x+60,self.y+60
+        return self.x-60,self.y-60,self.x+60,self.y+140
     def draw_bb(self):
         draw_rectangle(*self.get_bb())
 
@@ -162,6 +172,7 @@ class Skeleton:
 
     def __init__(self):
         self.x=1400
+        self.y=120
         self.now_state = "Appear"
 
         self.die=load_image("resource\\enemy\\skeleton\\die.png")
@@ -169,6 +180,7 @@ class Skeleton:
         self.attack=load_image("resource\\enemy\\skeleton\\attack.png")
         self.appear=load_image("resource\\enemy\\skeleton\\appear.png")
 
+        self.start=0
         self.total_frames=0.0
         self.die_frame=0
         self.walk_frame=0
@@ -178,6 +190,9 @@ class Skeleton:
 
     def Send_State(self):
         return self.now_state
+
+    def Receive_State(self, now_state):
+        self.now_state = now_state
 
     def update(self,frame_time):
         distance=Skeleton.RUN_SPEED_PPS*frame_time
@@ -192,16 +207,18 @@ class Skeleton:
 
         if self.now_state == "Walk":
             self.walk_frame = int(self.total_frames)%8
-            self.x-=distance
+            self.x-=(self.start*distance)
+
+        if self.now_state == "Attack":
+            self.start=0
+            self.attack_frame = int(self.total_frames)%8
 
         # self.die_frame=(self.die_frame+1)%8
-        # self.attack_frame=(self.attack_frame+1)%8
 
     def get_bb(self):
         return self.x-70,self.y-70,self.x+70,self.y+70
     def draw_bb(self):
         draw_rectangle(*self.get_bb())
-
 
     def draw_die(self):
         self.die.clip_draw(self.die_frame *275 , 0,275, 220, self.x, 170)
@@ -229,6 +246,7 @@ class Golem:
 
     def __init__(self):
         self.x=1400
+        self.y=140
         self.now_state = "Appear"
 
         self.die=load_image("resource\\enemy\\golem\\die.png")
@@ -236,6 +254,7 @@ class Golem:
         self.attack=load_image("resource\\enemy\\golem\\attack.png")
         self.appear=load_image("resource\\enemy\\golem\\appear.png")
 
+        self.start=0
         self.total_frames=0.0
         self.die_frame=0
         self.walk_frame=0
@@ -245,6 +264,9 @@ class Golem:
 
     def Send_State(self):
         return self.now_state
+
+    def Receive_State(self, now_state):
+        self.now_state = now_state
 
 
     def update(self,frame_time):
@@ -260,10 +282,12 @@ class Golem:
 
         if self.now_state == "Walk":
             self.walk_frame = int(self.total_frames)%6
-            self.x-=distance
+            self.x-=(self.start*distance)
 
+        if self.now_state=="Attack":
+            self.start=0
+            self.attack_frame=int(self.total_frames)%6
         # self.die_frame=int(self.die_frame)%6
-        # self.attack_frame=int(self.attack_frame)%6
 
     def get_bb(self):
         return self.x-160,self.y-160,self.x+160,self.y+160

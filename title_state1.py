@@ -14,7 +14,7 @@ def enter():
     image=load_image('title_state1.png')
     bgm=load_music('sound/title_BGM.mp3')
     bgm.set_volume(64)
-    bgm.play(1)
+    bgm.repeat_play()
 
 
 
