@@ -23,6 +23,7 @@ class Zombie:
         self.y=140
         self.now_state = "Appear"
         self.hp=50
+        self.damage=10
 
 
         self.die=load_image("resource\\enemy\\zombie\\die.png")
@@ -37,12 +38,16 @@ class Zombie:
         self.attack_frame=0
         self.appear_frame=0
         self.init_Start = 0
+        self.damage_time = 0
 
     def Send_State(self):
         return self.now_state
 
     def Receive_State(self, now_state):
         self.now_state = now_state
+
+    def Attack(self):
+        return self.attack_frame
 
     def update(self,frame_time):
         distance = Zombie.RUN_SPEED_PPS * frame_time
@@ -62,6 +67,16 @@ class Zombie:
         if self.now_state=="Attack":
             self.start=0
             self.attack_frame=int(self.total_frames)%7
+
+    def damaged(self, character1, frame_time):
+        self.damage_time += frame_time
+
+        if character1.attack_frame == 0:
+            if self.damage_time > 0.08:
+                self.damage_time = 0
+                self.hp -= character1.damage
+                if self.hp <= 0 : return True
+        return False
 
 
         # self.die_frame=(self.die_frame+1)%8

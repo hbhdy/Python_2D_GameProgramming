@@ -22,6 +22,8 @@ class Character1:
     def __init__(self):
         self.x=100
         self.y=140
+        self.hp=30
+        self.damage=5
 
         self.total_frames=0.0
         self.die_frame=0
@@ -29,6 +31,7 @@ class Character1:
         self.attack_frame=0
         self.start=1
         self.now_state = "Walk"
+        self.damage_time = 0
 
 
         self.die=load_image("resource\\team\\ch1\\die.png")
@@ -40,6 +43,9 @@ class Character1:
 
     def Receive_State(self, now_state):
         self.now_state = now_state
+
+    def Attack(self):
+        return self.attack_frame
 
     def update(self,frame_time):
         distance=Character1.RUN_SPEED_PPS*frame_time
@@ -54,6 +60,16 @@ class Character1:
 
         if self.now_state=="Die":
             self.die_frame= int(self.total_frames)%7
+
+    def damaged(self, zombie, frame_time):
+        self.damage_time += frame_time
+
+        if zombie.attack_frame == 0:
+            if self.damage_time > 0.08:
+                self.damage_time = 0
+                self.hp -= zombie.damage
+                if self.hp <= 0 : return True
+        return False
 
 
     def get_bb(self):

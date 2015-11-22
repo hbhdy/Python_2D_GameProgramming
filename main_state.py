@@ -249,6 +249,10 @@ def update(frame_time):
                 zombie[x].Receive_State("Attack")
                 character1_State="Attack"
                 character1.Receive_State(character1_State)
+                if character1.damaged(zombie[x], frame_time) == True :
+                        len[character_create1].remove(character1)
+                elif zombie[x].damaged(character1, frame_time) == True :
+                       enemy1_index.remove(zombie[x])
             if collide(character2,zombie[x]):
                 zombie[x].Receive_State("Attack")
                 character2_State="Attack"
