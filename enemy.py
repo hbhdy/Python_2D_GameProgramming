@@ -180,7 +180,7 @@ class Skeleton:
         self.attack=load_image("resource\\enemy\\skeleton\\attack.png")
         self.appear=load_image("resource\\enemy\\skeleton\\appear.png")
 
-        self.start=0
+        self.start=1
         self.total_frames=0.0
         self.die_frame=0
         self.walk_frame=0
@@ -216,7 +216,7 @@ class Skeleton:
         # self.die_frame=(self.die_frame+1)%8
 
     def get_bb(self):
-        return self.x-70,self.y-70,self.x+70,self.y+70
+        return self.x-70,self.y-70,self.x+70,self.y+140
     def draw_bb(self):
         draw_rectangle(*self.get_bb())
 
@@ -254,7 +254,7 @@ class Golem:
         self.attack=load_image("resource\\enemy\\golem\\attack.png")
         self.appear=load_image("resource\\enemy\\golem\\appear.png")
 
-        self.start=0
+        self.start=1
         self.total_frames=0.0
         self.die_frame=0
         self.walk_frame=0
@@ -290,7 +290,7 @@ class Golem:
         # self.die_frame=int(self.die_frame)%6
 
     def get_bb(self):
-        return self.x-160,self.y-160,self.x+160,self.y+160
+        return self.x-130,self.y-80,self.x+120,self.y+160
     def draw_bb(self):
         draw_rectangle(*self.get_bb())
 

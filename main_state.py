@@ -91,7 +91,9 @@ def enter():
     skeleton.append(Skeleton())
     Skeleton_State.append("Appear")
     golem=[]
+    Golem_State=[]
     golem.append(Golem())
+    Golem_State.append("Appear")
 
     zombie_StartTime =0
     vampire_StartTime =0
@@ -117,35 +119,37 @@ def monster_create_Time():
     global zombie_EndTime,vampire_EndTime,skeleton_EndTime,golem_EndTime
     global zombie,vampire,skeleton,golem
     global enemy1_index,enemy2_index,enemy3_index,enemy4_index
-    global Zombie_State,Vampire_State
+    # global Zombie_State,Vampire_State
 
     zombie_EndTime = time.time()
     vampire_EndTime = time.time()
     skeleton_EndTime = time.time()
     golem_EndTime = time.time()
 
-    zombie_checktime = int(zombie_EndTime - zombie_StartTime)
-    if( int(zombie_EndTime - zombie_StartTime) == 10 ):
-        zombie.append(Zombie())
-        Zombie_State.append("Appear")
-        enemy1_index += 1
-        zombie_StartTime = time.time()
-    vampire_checktime = int(vampire_EndTime - vampire_StartTime)
-    if( int(vampire_EndTime - vampire_StartTime) == 4):
-        vampire.append(Vampire())
-        Vampire_State.append("Appear")
-        enemy2_index+=1
-        vampire_StartTime = time.time()
-    skeleton_checktime = int(skeleton_EndTime - skeleton_StartTime)
-    if( int(skeleton_EndTime - skeleton_StartTime) == 6 ):
-        skeleton.append(Skeleton())
-        enemy3_index += 1
-        skeleton_StartTime = time.time()
-    golem_checktime = int(golem_EndTime - golem_StartTime)
-    if( int(golem_EndTime - golem_StartTime) == 8 ):
-        golem.append(Golem())
-        enemy4_index += 1
-        golem_StartTime = time.time()
+    # zombie_checktime = int(zombie_EndTime - zombie_StartTime)
+    if( int(zombie_EndTime - zombie_StartTime) == 20 ):
+            zombie.append(Zombie())
+            Zombie_State.append("Appear")
+            enemy1_index += 1
+            zombie_StartTime = time.time()
+    # vampire_checktime = int(vampire_EndTime - vampire_StartTime)
+    if( int(vampire_EndTime - vampire_StartTime) == 10):
+            vampire.append(Vampire())
+            Vampire_State.append("Appear")
+            enemy2_index+=1
+            vampire_StartTime = time.time()
+    # skeleton_checktime = int(skeleton_EndTime - skeleton_StartTime)
+    if( int(skeleton_EndTime - skeleton_StartTime) == 2 ):
+             skeleton.append(Skeleton())
+             Skeleton_State.append("Appear")
+             enemy3_index += 1
+             skeleton_StartTime = time.time()
+    # golem_checktime = int(golem_EndTime - golem_StartTime)
+    if( int(golem_EndTime - golem_StartTime) == 10 ):
+            golem.append(Golem())
+            Golem_State.append("Appear")
+            enemy4_index += 1
+            golem_StartTime = time.time()
 
     # print(enemy1_index)
 
@@ -226,11 +230,11 @@ def update(frame_time):
         vampire[y].update(frame_time)
         Vampire_State[y] = vampire[y].Send_State()
     for w in range(0,enemy3_index):
-        # Skeleton_State = Skeleton.Send_State()
         skeleton[w].update(frame_time)
+        Skeleton_State[w] = skeleton[w].Send_State()
     for z in range(0,enemy4_index):
-        # Golem_State = Golem.Send_State()
         golem[z].update(frame_time)
+        Golem_State[z] = golem[z].Send_State()
 
     character1.update(frame_time)
     character2.update(frame_time)
@@ -246,6 +250,16 @@ def update(frame_time):
     for y in range(0,enemy2_index):
         if collide(character1,vampire[y]):
             vampire[y].Receive_State("Attack")
+            character1_State="Attack"
+            character1.Receive_State(character1_State)
+    for w in range(0,enemy3_index):
+        if collide(character1,skeleton[w]):
+            skeleton[w].Receive_State("Attack")
+            character1_State="Attack"
+            character1.Receive_State(character1_State)
+    for z in range(0,enemy4_index):
+        if collide(character1,golem[z]):
+            golem[z].Receive_State("Attack")
             character1_State="Attack"
             character1.Receive_State(character1_State)
 
@@ -278,15 +292,22 @@ def draw(frame_time):
         if Vampire_State[y]=="Attack":
             vampire[y].draw_attack()
     for w in range(0,enemy3_index):
-        if Skeleton_State=="Appear":
+        if Skeleton_State[w]=="Appear":
             skeleton[w].draw_appear()
-        if Skeleton_State=="Walk":
+        if Skeleton_State[w]=="Walk":
             skeleton[w].draw_walk()
+            skeleton[w].draw_bb()
+        if Skeleton_State[w]=="Attack":
+            skeleton[w].draw_attack()
     for z in range(0,enemy4_index):
-        if Golem_State=="Appear":
+        if Golem_State[z]=="Appear":
             golem[z].draw_appear()
-        if Golem_State=="Walk":
+        if Golem_State[z]=="Walk":
             golem[z].draw_walk()
+            golem[z].draw_bb()
+        if Golem_State[z]=="Attack":
+            golem[z].draw_attack()
+
 
     for character1 in character_create1:
          character1.update(frame_time)
