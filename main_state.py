@@ -37,6 +37,9 @@ Skeleton_State=[]
 Golem_State=[]
 
 character1_State = "Walk"
+character2_State="Walk"
+character3_State="Walk"
+character4_State="Walk"
 
 
 
@@ -119,7 +122,6 @@ def monster_create_Time():
     global zombie_EndTime,vampire_EndTime,skeleton_EndTime,golem_EndTime
     global zombie,vampire,skeleton,golem
     global enemy1_index,enemy2_index,enemy3_index,enemy4_index
-    # global Zombie_State,Vampire_State
 
     zombie_EndTime = time.time()
     vampire_EndTime = time.time()
@@ -127,7 +129,7 @@ def monster_create_Time():
     golem_EndTime = time.time()
 
     # zombie_checktime = int(zombie_EndTime - zombie_StartTime)
-    if( int(zombie_EndTime - zombie_StartTime) == 20 ):
+    if( int(zombie_EndTime - zombie_StartTime) == 2 ):
             zombie.append(Zombie())
             Zombie_State.append("Appear")
             enemy1_index += 1
@@ -139,13 +141,13 @@ def monster_create_Time():
             enemy2_index+=1
             vampire_StartTime = time.time()
     # skeleton_checktime = int(skeleton_EndTime - skeleton_StartTime)
-    if( int(skeleton_EndTime - skeleton_StartTime) == 2 ):
+    if( int(skeleton_EndTime - skeleton_StartTime) == 20 ):
              skeleton.append(Skeleton())
              Skeleton_State.append("Appear")
              enemy3_index += 1
              skeleton_StartTime = time.time()
     # golem_checktime = int(golem_EndTime - golem_StartTime)
-    if( int(golem_EndTime - golem_StartTime) == 10 ):
+    if( int(golem_EndTime - golem_StartTime) == 30 ):
             golem.append(Golem())
             Golem_State.append("Appear")
             enemy4_index += 1
@@ -221,7 +223,7 @@ def handle_events(frame_time):
 def update(frame_time):
     global enemy1_index,enemy2_index,enemy3_index,enemy4_index
     global Zombie_State,Vampire_State,Skeleton_State,Golem_State
-    global character1_State
+    global character1_State,character2_State,character3_State,character4_State
 
     for x in range(0,enemy1_index):
         zombie[x].update(frame_time)
@@ -241,27 +243,78 @@ def update(frame_time):
     character3.update(frame_time)
     character4.update(frame_time)
 
-    # if (enemy1_index>=1):
-    for x in range(0,enemy1_index):
-        if collide(character1,zombie[x]):
-            zombie[x].Receive_State("Attack")
-            character1_State="Attack"
-            character1.Receive_State(character1_State)
-    for y in range(0,enemy2_index):
-        if collide(character1,vampire[y]):
-            vampire[y].Receive_State("Attack")
-            character1_State="Attack"
-            character1.Receive_State(character1_State)
-    for w in range(0,enemy3_index):
-        if collide(character1,skeleton[w]):
-            skeleton[w].Receive_State("Attack")
-            character1_State="Attack"
-            character1.Receive_State(character1_State)
-    for z in range(0,enemy4_index):
-        if collide(character1,golem[z]):
-            golem[z].Receive_State("Attack")
-            character1_State="Attack"
-            character1.Receive_State(character1_State)
+    if (enemy1_index>=1):
+        for x in range(0,enemy1_index):
+            if collide(character1,zombie[x]):
+                zombie[x].Receive_State("Attack")
+                character1_State="Attack"
+                character1.Receive_State(character1_State)
+            if collide(character2,zombie[x]):
+                zombie[x].Receive_State("Attack")
+                character2_State="Attack"
+                character2.Receive_State(character2_State)
+            if collide(character3,zombie[x]):
+                zombie[x].Receive_State("Attack")
+                character3_State="Attack"
+                character3.Receive_State(character3_State)
+            if collide(character4,zombie[x]):
+                zombie[x].Receive_State("Attack")
+                character4_State="Attack"
+                character4.Receive_State(character4_State)
+    if (enemy2_index>=1):
+        for y in range(0,enemy2_index):
+             if collide(character1,vampire[y]):
+                 vampire[y].Receive_State("Attack")
+                 character1_State="Attack"
+                 character1.Receive_State(character1_State)
+             if collide(character2,vampire[y]):
+                 vampire[y].Receive_State("Attack")
+                 character2_State="Attack"
+                 character2.Receive_State(character2_State)
+             if collide(character3,vampire[y]):
+                 vampire[y].Receive_State("Attack")
+                 character3_State="Attack"
+                 character3.Receive_State(character3_State)
+             if collide(character4,vampire[y]):
+                 vampire[y].Receive_State("Attack")
+                 character4_State="Attack"
+                 character4.Receive_State(character4_State)
+    if (enemy3_index>=1):
+        for w in range(0,enemy3_index):
+            if collide(character1,skeleton[w]):
+                skeleton[w].Receive_State("Attack")
+                character1_State="Attack"
+                character1.Receive_State(character1_State)
+            if collide(character2,skeleton[w]):
+                skeleton[w].Receive_State("Attack")
+                character2_State="Attack"
+                character2.Receive_State(character2_State)
+            if collide(character3,skeleton[w]):
+                skeleton[w].Receive_State("Attack")
+                character3_State="Attack"
+                character3.Receive_State(character3_State)
+            if collide(character4,skeleton[w]):
+                skeleton[w].Receive_State("Attack")
+                character4_State="Attack"
+                character4.Receive_State(character4_State)
+    if (enemy4_index>=1):
+        for z in range(0,enemy4_index):
+            if collide(character1,golem[z]):
+                golem[z].Receive_State("Attack")
+                character1_State="Attack"
+                character1.Receive_State(character1_State)
+            if collide(character2,golem[z]):
+                golem[z].Receive_State("Attack")
+                character2_State="Attack"
+                character2.Receive_State(character2_State)
+            if collide(character3,golem[z]):
+                golem[z].Receive_State("Attack")
+                character3_State="Attack"
+                character3.Receive_State(character3_State)
+            if collide(character4,golem[z]):
+                golem[z].Receive_State("Attack")
+                character4_State="Attack"
+                character4.Receive_State(character4_State)
 
     monster_create_Time()
 
@@ -318,16 +371,25 @@ def draw(frame_time):
          character1.draw_bb()
     for character2 in character_create2:
         character2.update(frame_time)
-        character2.draw_walk()
+        if character2_State == "Walk":
+            character2.draw_walk()
+        if character2_State == "Attack":
+            character2.draw_attack()
+        character2.draw_bb()
     for character3 in character_create3:
         character3.update(frame_time)
-        character3.draw_walk()
+        if character3_State == "Walk":
+            character3.draw_walk()
+        if character3_State == "Attack":
+            character3.draw_attack()
+        character3.draw_bb()
     for character4 in character_create4:
         character4.update(frame_time)
-        character4.draw_walk()
-
-
-
+        if character4_State == "Walk":
+            character4.draw_walk()
+        if character4_State == "Attack":
+            character4.draw_attack()
+        character4.draw_bb()
 
     update_canvas()
 

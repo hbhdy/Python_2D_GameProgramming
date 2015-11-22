@@ -16,7 +16,6 @@ class Character1:
     ACTION_PER_TIME = 0.5 / TIME_PER_ACTION
     FRAMES_PER_ACTION = 8
 
-    WALK,ATTACK,DIE=1,0,2
     now_state="Walk"
 
 
@@ -56,13 +55,6 @@ class Character1:
         if self.now_state=="Die":
             self.die_frame= int(self.total_frames)%7
 
-        # if self.state==self.WALK:
-        #     self.walk_frame= int(self.total_frames)%8
-        # if self.state==self.ATTACK:
-        #     self.attack_frame= int(self.total_frames)%5
-        # if self.state==self.DIE:
-        #     self.die_frame= int(self.total_frames)%7
-        # self.x+=(self.start*distance)
 
     def get_bb(self):
         return self.x-50,self.y-70,self.x+50,self.y+20
@@ -87,11 +79,13 @@ class Character2:
     ACTION_PER_TIME = 0.5 / TIME_PER_ACTION
     FRAMES_PER_ACTION = 8
 
-    WALK,ATTACK,DIE=1,0,2
+    now_state="Walk"
 
     def __init__(self):
         self.x=120
+        self.y=120
         self.hp=70
+        self.now_state="Walk"
 
 
         self.total_frames=0.0
@@ -99,28 +93,33 @@ class Character2:
         self.walk_frame=0
         self.attack_frame=0
         self.start=1
-        self.state=self.WALK
 
         self.die = load_image("resource\\team\\ch2\\die.png")
         self.walk = load_image("resource\\team\\ch2\\walk.png")
         self.attack = load_image("resource\\team\\ch2\\attack.png")
 
+    def Send_State(self):
+        return self.now_state
+
+    def Receive_State(self, now_state):
+        self.now_state = now_state
+
     def update(self,frame_time):
         distance = Character2.RUN_SPEED_PPS * frame_time
         self.total_frames+=Character2.FRAMES_PER_ACTION*Character2.ACTION_PER_TIME*frame_time
 
-        if self.state==self.WALK:
+        if self.now_state=="Walk":
             self.walk_frame=int(self.total_frames)%10
             self.x+=(self.start*distance)
-        if self.state==self.ATTACK:
+        if self.now_state=="Attack":
+            self.start=0
             self.attack_frame=int(self.total_frames)%7
-        if self.state==self.DIE:
+        if self.now_state=="Die":
             self.die_frame=int(self.total_frames)&8
-        # self.x+=(self.start*distance)
 
 
     def get_bb(self):
-        return self.x-144,self.y-144,self.x+144,self.y+144
+        return self.x-60,self.y-60,self.x+60,self.y+100
     def draw_bb(self):
         draw_rectangle(*self.get_bb())
 
@@ -142,36 +141,44 @@ class Character3:
     ACTION_PER_TIME = 0.5 / TIME_PER_ACTION
     FRAMES_PER_ACTION = 8
 
-    WALK,ATTACK,DIE=1,0,2
+    now_state="Walk"
 
     def __init__(self):
         self.x=140
+        self.y=120
+        self.now_state="Walk"
 
         self.total_frames=0.0
         self.die_frame=0
         self.walk_frame=0
         self.attack_frame=0
         self.start=1
-        self.state=self.WALK
 
         self.die=load_image("resource\\team\\ch3\\die.png")
         self.walk=load_image("resource\\team\\ch3\\walk.png")
         self.attack=load_image("resource\\team\\ch3\\attack.png")
 
+    def Send_State(self):
+        return self.now_state
+
+    def Receive_State(self, now_state):
+        self.now_state = now_state
+
     def update(self,frame_time):
         distance=Character3.RUN_SPEED_PPS*frame_time
         self.total_frames+=Character3.FRAMES_PER_ACTION*Character3.ACTION_PER_TIME*frame_time
 
-        if self.state==self.WALK:
+        if self.now_state=="Walk":
             self.walk_frame = int(self.total_frames)%10
-        if self.state==self.ATTACK:
+            self.x+=(self.start*distance)
+        if self.now_state=="Attack":
+            self.start=0
             self.attack_frame=int(self.total_frames)%13
-        if self.state==self.DIE:
+        if self.now_state=="Die":
             self.die_frame=int(self.total_frames)%7
-        self.x+=(self.start*distance)
 
     def get_bb(self):
-        return self.x-144,self.y-144,self.x+144,self.y+144
+        return self.x-70,self.y-70,self.x+70,self.y+120
     def draw_bb(self):
         draw_rectangle(*self.get_bb())
 
@@ -193,36 +200,44 @@ class Character4:
     ACTION_PER_TIME = 0.5 / TIME_PER_ACTION
     FRAMES_PER_ACTION = 8
 
-    WALK,ATTACK,DIE=1,0,2
+    now_state="Walk"
 
     def __init__(self):
         self.x=160
+        self.y=120
 
         self.total_frames=0.0
         self.die_frame=0
         self.walk_frame=0
         self.attack_frame=0
         self.start=1
-        self.state=self.WALK
+
 
         self.die=load_image("resource\\team\\ch4\\die.png")
         self.walk=load_image("resource\\team\\ch4\\walk.png")
         self.attack=load_image("resource\\team\\ch4\\attack.png")
 
+    def Send_State(self):
+        return self.now_state
+
+    def Receive_State(self, now_state):
+        self.now_state = now_state
+
     def update(self,frame_time):
         distance = Character4.RUN_SPEED_PPS * frame_time
         self.total_frames += Character4.FRAMES_PER_ACTION * Character4.ACTION_PER_TIME * frame_time
 
-        if self.state==self.WALK:
+        if self.now_state=="Walk":
             self.walk_frame=int(self.total_frames)%10
-        if self.state==self.ATTACK:
+            self.x+=(self.start*distance)
+        if self.now_state=="Attack":
+            self.start=0
             self.attack_frame=int(self.total_frames)%10
-        if self.state==self.DIE:
+        if self.now_state=="Die":
             self.die_frame=int(self.total_frames)%6
-        self.x+=(self.start*distance)
 
     def get_bb(self):
-        return self.x-144,self.y-144,self.x+144,self.y+144
+        return self.x-60,self.y-60,self.x+60,self.y+80
     def draw_bb(self):
         draw_rectangle(*self.get_bb())
 

@@ -48,14 +48,12 @@ def handle_events(frame_time):
         else:
             if (event.type, event.key) == (SDL_KEYDOWN, SDLK_ESCAPE):
                 game_framework.quit()
-            # elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_SPACE):
-            #     game_framework.change_state(main_state)
             elif event.type == SDL_MOUSEMOTION:
                 mouse_x,mouse_y = event.x,800-event.y
             elif (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT):
-                if 600<mouse_x<800 and 265<mouse_y<380:
+                if 600<mouse_x<1000 and 265<mouse_y<380:
                      game_framework.change_state(main_state)
-                if 600<mouse_x<800 and 135<mouse_y<250:
+                if 600<mouse_x<1000 and 135<mouse_y<250:
                     game_framework.quit()
 
 
