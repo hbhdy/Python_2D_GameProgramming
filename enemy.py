@@ -72,7 +72,7 @@ class Zombie:
         self.damage_time += frame_time
 
         if character1.attack_frame == 0:
-            if self.damage_time > 0.08:
+            if self.damage_time > 0.7:
                 self.damage_time = 0
                 self.hp -= character1.damage
                 if self.hp <= 0 : return True
@@ -134,6 +134,9 @@ class Vampire:
 
     def Receive_State(self, now_state):
         self.now_state = now_state
+
+    def Attack(self):
+        return self.attack_frame
 
     def update(self,frame_time):
         distance = Vampire.RUN_SPEED_PPS * frame_time

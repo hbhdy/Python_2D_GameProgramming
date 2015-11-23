@@ -24,6 +24,7 @@ class Character1:
         self.y=140
         self.hp=30
         self.damage=5
+        self.Character_NUM = 0
 
         self.total_frames=0.0
         self.die_frame=0
@@ -38,8 +39,14 @@ class Character1:
         self.walk=load_image("resource\\team\\ch1\\walk.png")
         self.attack=load_image("resource\\team\\ch1\\attack.png")
 
+    def Get_Num(self, num):
+        self.Character_NUM = num
+
+    def Send_Num(self):
+        return self.Character_NUM
+
     def Send_State(self):
-        return self.now_state
+        return str(self.now_state)
 
     def Receive_State(self, now_state):
         self.now_state = now_state
