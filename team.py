@@ -24,7 +24,7 @@ class Character1:
         self.y=140
         self.hp=30
         self.damage=5
-        self.Character_NUM = 0
+        self.damage_time = 0
 
         self.total_frames=0.0
         self.die_frame=0
@@ -32,18 +32,10 @@ class Character1:
         self.attack_frame=0
         self.start=1
         self.now_state = "Walk"
-        self.damage_time = 0
-
 
         self.die=load_image("resource\\team\\ch1\\die.png")
         self.walk=load_image("resource\\team\\ch1\\walk.png")
         self.attack=load_image("resource\\team\\ch1\\attack.png")
-
-    def Get_Num(self, num):
-        self.Character_NUM = num
-
-    def Send_Num(self):
-        return self.Character_NUM
 
     def Send_State(self):
         return str(self.now_state)
@@ -72,9 +64,39 @@ class Character1:
         self.damage_time += frame_time
 
         if zombie.attack_frame == 0:
-            if self.damage_time > 0.08:
+            if self.damage_time > 0.1:
                 self.damage_time = 0
                 self.hp -= zombie.damage
+                if self.hp <= 0 : return True
+        return False
+
+    def damaged(self, vampire, frame_time):
+        self.damage_time += frame_time
+
+        if vampire.attack_frame == 0:
+            if self.damage_time > 0.1:
+                self.damage_time = 0
+                self.hp -= vampire.damage
+                if self.hp <= 0 : return True
+        return False
+
+    def damaged(self, skeleton, frame_time):
+        self.damage_time += frame_time
+
+        if skeleton.attack_frame == 0:
+            if self.damage_time > 0.1:
+                self.damage_time = 0
+                self.hp -= skeleton.damage
+                if self.hp <= 0 : return True
+        return False
+
+    def damaged(self, golem, frame_time):
+        self.damage_time += frame_time
+
+        if golem.attack_frame == 0:
+            if self.damage_time > 0.1:
+                self.damage_time = 0
+                self.hp -= golem.damage
                 if self.hp <= 0 : return True
         return False
 
@@ -107,7 +129,9 @@ class Character2:
     def __init__(self):
         self.x=120
         self.y=120
-        self.hp=70
+        self.hp=30
+        self.damage=5
+        self.damage_time = 0
         self.now_state="Walk"
 
 
@@ -127,6 +151,9 @@ class Character2:
     def Receive_State(self, now_state):
         self.now_state = now_state
 
+    def Attack(self):
+        return self.attack_frame
+
     def update(self,frame_time):
         distance = Character2.RUN_SPEED_PPS * frame_time
         self.total_frames+=Character2.FRAMES_PER_ACTION*Character2.ACTION_PER_TIME*frame_time
@@ -139,6 +166,46 @@ class Character2:
             self.attack_frame=int(self.total_frames)%7
         if self.now_state=="Die":
             self.die_frame=int(self.total_frames)&8
+
+    def damaged(self, zombie, frame_time):
+        self.damage_time += frame_time
+
+        if zombie.attack_frame == 0:
+            if self.damage_time > 0.1:
+                self.damage_time = 0
+                self.hp -= zombie.damage
+                if self.hp <= 0 : return True
+        return False
+
+    def damaged(self, vampire, frame_time):
+        self.damage_time += frame_time
+
+        if vampire.attack_frame == 0:
+            if self.damage_time > 0.1:
+                self.damage_time = 0
+                self.hp -= vampire.damage
+                if self.hp <= 0 : return True
+        return False
+
+    def damaged(self, skeleton, frame_time):
+        self.damage_time += frame_time
+
+        if skeleton.attack_frame == 0:
+            if self.damage_time > 0.1:
+                self.damage_time = 0
+                self.hp -= skeleton.damage
+                if self.hp <= 0 : return True
+        return False
+
+    def damaged(self, golem, frame_time):
+        self.damage_time += frame_time
+
+        if golem.attack_frame == 0:
+            if self.damage_time > 0.1:
+                self.damage_time = 0
+                self.hp -= golem.damage
+                if self.hp <= 0 : return True
+        return False
 
 
     def get_bb(self):
@@ -169,6 +236,9 @@ class Character3:
     def __init__(self):
         self.x=140
         self.y=120
+        self.hp=30
+        self.damage=5
+        self.damage_time = 0
         self.now_state="Walk"
 
         self.total_frames=0.0
@@ -187,6 +257,9 @@ class Character3:
     def Receive_State(self, now_state):
         self.now_state = now_state
 
+    def Attack(self):
+        return self.attack_frame
+
     def update(self,frame_time):
         distance=Character3.RUN_SPEED_PPS*frame_time
         self.total_frames+=Character3.FRAMES_PER_ACTION*Character3.ACTION_PER_TIME*frame_time
@@ -199,6 +272,46 @@ class Character3:
             self.attack_frame=int(self.total_frames)%13
         if self.now_state=="Die":
             self.die_frame=int(self.total_frames)%7
+
+    def damaged(self, zombie, frame_time):
+        self.damage_time += frame_time
+
+        if zombie.attack_frame == 0:
+            if self.damage_time > 0.1:
+                self.damage_time = 0
+                self.hp -= zombie.damage
+                if self.hp <= 0 : return True
+        return False
+
+    def damaged(self, vampire, frame_time):
+        self.damage_time += frame_time
+
+        if vampire.attack_frame == 0:
+            if self.damage_time > 0.1:
+                self.damage_time = 0
+                self.hp -= vampire.damage
+                if self.hp <= 0 : return True
+        return False
+
+    def damaged(self, skeleton, frame_time):
+        self.damage_time += frame_time
+
+        if skeleton.attack_frame == 0:
+            if self.damage_time > 0.1:
+                self.damage_time = 0
+                self.hp -= skeleton.damage
+                if self.hp <= 0 : return True
+        return False
+
+    def damaged(self, golem, frame_time):
+        self.damage_time += frame_time
+
+        if golem.attack_frame == 0:
+            if self.damage_time > 0.1:
+                self.damage_time = 0
+                self.hp -= golem.damage
+                if self.hp <= 0 : return True
+        return False
 
     def get_bb(self):
         return self.x-70,self.y-70,self.x+70,self.y+120
@@ -228,13 +341,15 @@ class Character4:
     def __init__(self):
         self.x=160
         self.y=120
+        self.hp=30
+        self.damage=50
+        self.damage_time = 0
 
         self.total_frames=0.0
         self.die_frame=0
         self.walk_frame=0
         self.attack_frame=0
         self.start=1
-
 
         self.die=load_image("resource\\team\\ch4\\die.png")
         self.walk=load_image("resource\\team\\ch4\\walk.png")
@@ -245,6 +360,9 @@ class Character4:
 
     def Receive_State(self, now_state):
         self.now_state = now_state
+
+    def Attack(self):
+        return self.attack_frame
 
     def update(self,frame_time):
         distance = Character4.RUN_SPEED_PPS * frame_time
@@ -258,6 +376,46 @@ class Character4:
             self.attack_frame=int(self.total_frames)%10
         if self.now_state=="Die":
             self.die_frame=int(self.total_frames)%6
+
+    def damaged(self, zombie, frame_time):
+        self.damage_time += frame_time
+
+        if zombie.attack_frame == 0:
+            if self.damage_time > 0.1:
+                self.damage_time = 0
+                self.hp -= zombie.damage
+                if self.hp <= 0 : return True
+        return False
+
+    def damaged(self, vampire, frame_time):
+        self.damage_time += frame_time
+
+        if vampire.attack_frame == 0:
+            if self.damage_time > 0.1:
+                self.damage_time = 0
+                self.hp -= vampire.damage
+                if self.hp <= 0 : return True
+        return False
+
+    def damaged(self, skeleton, frame_time):
+        self.damage_time += frame_time
+
+        if skeleton.attack_frame == 0:
+            if self.damage_time > 0.1:
+                self.damage_time = 0
+                self.hp -= skeleton.damage
+                if self.hp <= 0 : return True
+        return False
+
+    def damaged(self, golem, frame_time):
+        self.damage_time += frame_time
+
+        if golem.attack_frame == 0:
+            if self.damage_time > 0.1:
+                self.damage_time = 0
+                self.hp -= golem.damage
+                if self.hp <= 0 : return True
+        return False
 
     def get_bb(self):
         return self.x-60,self.y-60,self.x+60,self.y+80
