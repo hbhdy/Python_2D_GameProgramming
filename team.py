@@ -51,10 +51,12 @@ class Character1:
         self.total_frames+=Character1.FRAMES_PER_ACTION*Character1.ACTION_PER_TIME*frame_time
 
         if self.now_state == "Walk":
+            self.start=1
             self.walk_frame= int(self.total_frames)%8
             self.x+=(self.start*distance)
 
         if self.now_state == "Attack":
+            self.start=0
             self.attack_frame= int(self.total_frames)%5
 
         if self.now_state=="Die":
@@ -129,8 +131,8 @@ class Character2:
     def __init__(self):
         self.x=120
         self.y=120
-        self.hp=30
-        self.damage=5
+        self.hp=70
+        self.damage=10
         self.damage_time = 0
         self.now_state="Walk"
 
@@ -159,6 +161,7 @@ class Character2:
         self.total_frames+=Character2.FRAMES_PER_ACTION*Character2.ACTION_PER_TIME*frame_time
 
         if self.now_state=="Walk":
+            self.start=1
             self.walk_frame=int(self.total_frames)%10
             self.x+=(self.start*distance)
         if self.now_state=="Attack":
@@ -236,8 +239,8 @@ class Character3:
     def __init__(self):
         self.x=140
         self.y=120
-        self.hp=30
-        self.damage=5
+        self.hp=100
+        self.damage=15
         self.damage_time = 0
         self.now_state="Walk"
 
@@ -265,6 +268,7 @@ class Character3:
         self.total_frames+=Character3.FRAMES_PER_ACTION*Character3.ACTION_PER_TIME*frame_time
 
         if self.now_state=="Walk":
+            self.start=1
             self.walk_frame = int(self.total_frames)%10
             self.x+=(self.start*distance)
         if self.now_state=="Attack":
@@ -341,8 +345,8 @@ class Character4:
     def __init__(self):
         self.x=160
         self.y=120
-        self.hp=30
-        self.damage=50
+        self.hp=130
+        self.damage=40
         self.damage_time = 0
 
         self.total_frames=0.0
@@ -369,6 +373,7 @@ class Character4:
         self.total_frames += Character4.FRAMES_PER_ACTION * Character4.ACTION_PER_TIME * frame_time
 
         if self.now_state=="Walk":
+            self.start=1
             self.walk_frame=int(self.total_frames)%10
             self.x+=(self.start*distance)
         if self.now_state=="Attack":

@@ -22,9 +22,9 @@ class Zombie:
         self.x=1400
         self.y=140
         self.now_state = "Appear"
-        self.hp=50
+        self.hp=20
         self.damage_time = 0
-        self.damage=10
+        self.damage=5
 
 
         self.die=load_image("resource\\enemy\\zombie\\die.png")
@@ -62,6 +62,7 @@ class Zombie:
                 self.init_Start += 1
 
         if self.now_state == "Walk":
+            self.start=1
             self.walk_frame = int(self.total_frames)%10
             self.x-=(self.start*distance)
 
@@ -144,7 +145,7 @@ class Vampire:
     def __init__(self):
         self.x=1400
         self.y=120
-        self.hp=10
+        self.hp=50
         self.damage_time = 0
         self.damage=10
         self.now_state = "Appear"
@@ -183,6 +184,7 @@ class Vampire:
                 self.init_Start += 1
 
         if self.now_state == "Walk":
+            self.start=1
             self.walk_frame = int(self.total_frames)%5
             self.x-=(self.start*distance)
 
@@ -267,7 +269,7 @@ class Skeleton:
         self.y=120
         self.hp=100
         self.damage_time = 0
-        self.damage=10
+        self.damage=15
         self.now_state = "Appear"
 
         self.die=load_image("resource\\enemy\\skeleton\\die.png")
@@ -304,6 +306,7 @@ class Skeleton:
                 self.init_Start += 1
 
         if self.now_state == "Walk":
+            self.start=1
             self.walk_frame = int(self.total_frames)%8
             self.x-=(self.start*distance)
 
@@ -386,9 +389,9 @@ class Golem:
     def __init__(self):
         self.x=1400
         self.y=140
-        self.hp=100
+        self.hp=230
         self.damage_time = 0
-        self.damage=10
+        self.damage=20
         self.now_state = "Appear"
 
         self.die=load_image("resource\\enemy\\golem\\die.png")
@@ -426,6 +429,7 @@ class Golem:
                 self.init_Start += 1
 
         if self.now_state == "Walk":
+            self.start=1
             self.walk_frame = int(self.total_frames)%6
             self.x-=(self.start*distance)
 
