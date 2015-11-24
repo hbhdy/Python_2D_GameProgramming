@@ -143,13 +143,13 @@ def monster_create_Time():
     golem_EndTime = time.time()
 
     # zombie_checktime = int(zombie_EndTime - zombie_StartTime)
-    if( int(zombie_EndTime - zombie_StartTime) == 2 ):
+    if( int(zombie_EndTime - zombie_StartTime) == 5 ):
             zombie.append(Zombie())
             Zombie_State.append("Appear")
             enemy1_index += 1
             zombie_StartTime = time.time()
     # vampire_checktime = int(vampire_EndTime - vampire_StartTime)
-    if( int(vampire_EndTime - vampire_StartTime) == 20):
+    if( int(vampire_EndTime - vampire_StartTime) == 10):
             vampire.append(Vampire())
             Vampire_State.append("Appear")
             enemy2_index+=1
@@ -215,7 +215,7 @@ def mouse_click():
 
 
     if 380<mouse_x<470 and 20<mouse_y<120:
-        character4.append(Character1())
+        character4.append(Character4())
         Character4_State.append("Walk")
         character4_index += 1
 

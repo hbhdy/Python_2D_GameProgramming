@@ -30,7 +30,7 @@ class Character1:
         self.die_frame=0
         self.walk_frame=0
         self.attack_frame=0
-        self.start=1
+        self.start=2
         self.now_state = "Walk"
 
         self.die=load_image("resource\\team\\ch1\\die.png")
@@ -51,7 +51,7 @@ class Character1:
         self.total_frames+=Character1.FRAMES_PER_ACTION*Character1.ACTION_PER_TIME*frame_time
 
         if self.now_state == "Walk":
-            self.start=1
+            self.start=2
             self.walk_frame= int(self.total_frames)%8
             self.x+=(self.start*distance)
 
@@ -141,7 +141,7 @@ class Character2:
         self.die_frame=0
         self.walk_frame=0
         self.attack_frame=0
-        self.start=1
+        self.start=2
 
         self.die = load_image("resource\\team\\ch2\\die.png")
         self.walk = load_image("resource\\team\\ch2\\walk.png")
@@ -161,7 +161,7 @@ class Character2:
         self.total_frames+=Character2.FRAMES_PER_ACTION*Character2.ACTION_PER_TIME*frame_time
 
         if self.now_state=="Walk":
-            self.start=1
+            self.start=2
             self.walk_frame=int(self.total_frames)%10
             self.x+=(self.start*distance)
         if self.now_state=="Attack":
@@ -248,7 +248,7 @@ class Character3:
         self.die_frame=0
         self.walk_frame=0
         self.attack_frame=0
-        self.start=1
+        self.start=2
 
         self.die=load_image("resource\\team\\ch3\\die.png")
         self.walk=load_image("resource\\team\\ch3\\walk.png")
@@ -268,7 +268,7 @@ class Character3:
         self.total_frames+=Character3.FRAMES_PER_ACTION*Character3.ACTION_PER_TIME*frame_time
 
         if self.now_state=="Walk":
-            self.start=1
+            self.start=2
             self.walk_frame = int(self.total_frames)%10
             self.x+=(self.start*distance)
         if self.now_state=="Attack":
@@ -353,7 +353,7 @@ class Character4:
         self.die_frame=0
         self.walk_frame=0
         self.attack_frame=0
-        self.start=1
+        self.start=2
 
         self.die=load_image("resource\\team\\ch4\\die.png")
         self.walk=load_image("resource\\team\\ch4\\walk.png")
@@ -373,7 +373,7 @@ class Character4:
         self.total_frames += Character4.FRAMES_PER_ACTION * Character4.ACTION_PER_TIME * frame_time
 
         if self.now_state=="Walk":
-            self.start=1
+            self.start=2
             self.walk_frame=int(self.total_frames)%10
             self.x+=(self.start*distance)
         if self.now_state=="Attack":
