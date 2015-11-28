@@ -5,6 +5,7 @@ import time
 
 from enemy import *
 from team import *
+from gate import *
 
 from pico2d import *
 
@@ -64,12 +65,15 @@ def enter():
     global character1,character2,character3,character4
     global characterUI
     global zombie_StartTime,vampire_StartTime,skeleton_StartTime,golem_StartTime
-    global bgm
+    global bgm,enemy_gate,team_gate
 
 
     bgm=load_music('sound/main_BGM.mp3')
     bgm.set_volume(64)
     bgm.repeat_play()
+
+    enemy_gate=Enemy_gate()
+    team_gate=Team_gate()
 
     background = Background()
 
@@ -173,6 +177,7 @@ def exit():
     global background,characterUI
     global character1,character2,character3,character4
     global zombie,vampire,golem,skeleton,bgm
+    global enemy_gate,team_gate
 
     del(characterUI)
     del(background)
@@ -185,6 +190,8 @@ def exit():
     del(vampire)
     del(golem)
     del(bgm)
+    del(enemy_gate)
+    del(team_gate)
 
 def pause():
     pass
@@ -240,6 +247,7 @@ def update(frame_time):
     global Zombie_State,Vampire_State,Skeleton_State,Golem_State
     global Character1_Statea,Character2_Statea,Character3_Statea,Character4_Statea
     global Character1_State,Character2_State,Character3_State,Character4_State
+    global team_gate
 
     for x in range(0,enemy1_index):
         zombie[x].update(frame_time)
@@ -533,6 +541,29 @@ def update(frame_time):
                         enemy4_index-=1
                         Character4_Statea = "Walk"
                         character4[d].Receive_State(str(Character4_Statea))
+    for x in range(0,enemy1_index):
+        if collide(team_gate,zombie[x]):
+                    zombie[x].Receive_State("Attack")
+                    if team_gate.damaged(zombie[x], frame_time) == True :
+                        close_canvas()
+    for x in range(0,enemy2_index):
+        if collide(team_gate,zombie[x]):
+                    zombie[x].Receive_State("Attack")
+                    if team_gate.damaged(zombie[x], frame_time) == True :
+                        close_canvas()
+    for x in range(0,enemy3_index):
+        if collide(team_gate,zombie[x]):
+                    zombie[x].Receive_State("Attack")
+                    if team_gate.damaged(zombie[x], frame_time) == True :
+                        close_canvas()
+    for x in range(0,enemy4_index):
+        if collide(team_gate,zombie[x]):
+                    zombie[x].Receive_State("Attack")
+                    if team_gate.damaged(zombie[x], frame_time) == True :
+                        close_canvas()
+
+
+
 
 
     monster_create_Time()
@@ -545,6 +576,10 @@ def draw(frame_time):
     clear_canvas()
     background.draw()
     characterUI.draw(250,735)
+    enemy_gate.draw()
+    enemy_gate.draw_bb()
+    team_gate.draw()
+    team_gate.draw_bb()
 
     for x in range(0,enemy1_index):
         if Zombie_State[x]=="Appear":
