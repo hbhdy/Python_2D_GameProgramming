@@ -66,7 +66,7 @@ class Character1:
         self.damage_time += frame_time
 
         if zombie.attack_frame == 0:
-            if self.damage_time > 0.1:
+            if self.damage_time > 1:
                 self.damage_time = 0
                 self.hp -= zombie.damage
                 if self.hp <= 0 : return True
@@ -76,7 +76,7 @@ class Character1:
         self.damage_time += frame_time
 
         if vampire.attack_frame == 0:
-            if self.damage_time > 0.1:
+            if self.damage_time > 1:
                 self.damage_time = 0
                 self.hp -= vampire.damage
                 if self.hp <= 0 : return True
@@ -86,7 +86,7 @@ class Character1:
         self.damage_time += frame_time
 
         if skeleton.attack_frame == 0:
-            if self.damage_time > 0.1:
+            if self.damage_time > 1:
                 self.damage_time = 0
                 self.hp -= skeleton.damage
                 if self.hp <= 0 : return True
@@ -96,7 +96,7 @@ class Character1:
         self.damage_time += frame_time
 
         if golem.attack_frame == 0:
-            if self.damage_time > 0.1:
+            if self.damage_time > 1:
                 self.damage_time = 0
                 self.hp -= golem.damage
                 if self.hp <= 0 : return True
@@ -174,7 +174,7 @@ class Character2:
         self.damage_time += frame_time
 
         if zombie.attack_frame == 0:
-            if self.damage_time > 0.1:
+            if self.damage_time > 1:
                 self.damage_time = 0
                 self.hp -= zombie.damage
                 if self.hp <= 0 : return True
@@ -184,7 +184,7 @@ class Character2:
         self.damage_time += frame_time
 
         if vampire.attack_frame == 0:
-            if self.damage_time > 0.1:
+            if self.damage_time > 1:
                 self.damage_time = 0
                 self.hp -= vampire.damage
                 if self.hp <= 0 : return True
@@ -194,7 +194,7 @@ class Character2:
         self.damage_time += frame_time
 
         if skeleton.attack_frame == 0:
-            if self.damage_time > 0.1:
+            if self.damage_time > 1:
                 self.damage_time = 0
                 self.hp -= skeleton.damage
                 if self.hp <= 0 : return True
@@ -204,7 +204,7 @@ class Character2:
         self.damage_time += frame_time
 
         if golem.attack_frame == 0:
-            if self.damage_time > 0.1:
+            if self.damage_time > 1:
                 self.damage_time = 0
                 self.hp -= golem.damage
                 if self.hp <= 0 : return True
@@ -240,7 +240,7 @@ class Character3:
         self.x=140
         self.y=120
         self.hp=100
-        self.damage=15
+        self.damage=20
         self.damage_time = 0
         self.now_state="Walk"
 
@@ -281,7 +281,7 @@ class Character3:
         self.damage_time += frame_time
 
         if zombie.attack_frame == 0:
-            if self.damage_time > 0.1:
+            if self.damage_time > 1:
                 self.damage_time = 0
                 self.hp -= zombie.damage
                 if self.hp <= 0 : return True
@@ -291,7 +291,7 @@ class Character3:
         self.damage_time += frame_time
 
         if vampire.attack_frame == 0:
-            if self.damage_time > 0.1:
+            if self.damage_time > 1:
                 self.damage_time = 0
                 self.hp -= vampire.damage
                 if self.hp <= 0 : return True
@@ -301,7 +301,7 @@ class Character3:
         self.damage_time += frame_time
 
         if skeleton.attack_frame == 0:
-            if self.damage_time > 0.1:
+            if self.damage_time > 1:
                 self.damage_time = 0
                 self.hp -= skeleton.damage
                 if self.hp <= 0 : return True
@@ -311,7 +311,7 @@ class Character3:
         self.damage_time += frame_time
 
         if golem.attack_frame == 0:
-            if self.damage_time > 0.1:
+            if self.damage_time > 1:
                 self.damage_time = 0
                 self.hp -= golem.damage
                 if self.hp <= 0 : return True
@@ -345,7 +345,7 @@ class Character4:
     def __init__(self):
         self.x=160
         self.y=120
-        self.hp=130
+        self.hp=150
         self.damage=40
         self.damage_time = 0
 
@@ -386,7 +386,7 @@ class Character4:
         self.damage_time += frame_time
 
         if zombie.attack_frame == 0:
-            if self.damage_time > 0.1:
+            if self.damage_time > 1:
                 self.damage_time = 0
                 self.hp -= zombie.damage
                 if self.hp <= 0 : return True
@@ -396,7 +396,7 @@ class Character4:
         self.damage_time += frame_time
 
         if vampire.attack_frame == 0:
-            if self.damage_time > 0.1:
+            if self.damage_time > 1:
                 self.damage_time = 0
                 self.hp -= vampire.damage
                 if self.hp <= 0 : return True
@@ -406,7 +406,7 @@ class Character4:
         self.damage_time += frame_time
 
         if skeleton.attack_frame == 0:
-            if self.damage_time > 0.1:
+            if self.damage_time > 1:
                 self.damage_time = 0
                 self.hp -= skeleton.damage
                 if self.hp <= 0 : return True
@@ -416,7 +416,7 @@ class Character4:
         self.damage_time += frame_time
 
         if golem.attack_frame == 0:
-            if self.damage_time > 0.1:
+            if self.damage_time > 1:
                 self.damage_time = 0
                 self.hp -= golem.damage
                 if self.hp <= 0 : return True

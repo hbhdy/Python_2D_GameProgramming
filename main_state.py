@@ -13,8 +13,11 @@ import game_framework
 
 name = "MainState"
 
+font=None
 background=None
 bgm=None
+goldbar=None
+gold=0
 
 character1_index=0
 character2_index=0
@@ -58,7 +61,7 @@ class Background:
         self.image.draw_to_origin(0,0,1600,800)
 
 def enter():
-    global background
+    global background,font,goldbar
     global zombie,vampire,skeleton,golem
     global enemy1_index,enemy2_index,enemy3_index,enemy4_index
     global character1_index,character2_index,character3_index,character4_index
@@ -67,7 +70,7 @@ def enter():
     global zombie_StartTime,vampire_StartTime,skeleton_StartTime,golem_StartTime
     global bgm,enemy_gate,team_gate
 
-
+    font=load_font('ENCR10B.ttf')
     bgm=load_music('sound/main_BGM.mp3')
     bgm.set_volume(64)
     bgm.repeat_play()
@@ -132,7 +135,7 @@ def enter():
 
 
     characterUI=load_image('UI\\characterUI.png')
-
+    goldbar=load_image('UI\\goldbar.png')
 
 
 def monster_create_Time():
@@ -174,11 +177,12 @@ def monster_create_Time():
     # print(enemy1_index)
 
 def exit():
-    global background,characterUI
+    global background,characterUI,font
     global character1,character2,character3,character4
     global zombie,vampire,golem,skeleton,bgm
     global enemy_gate,team_gate
 
+    del(font)
     del(characterUI)
     del(background)
     del(character1)
@@ -203,29 +207,31 @@ def resume():
 def mouse_click():
     global character1,character2,character3,character4
     global character1_index,character2_index,character3_index,character4_index
+    global gold
 
     if 20<mouse_x<120 and 20<mouse_y<120:
         character1.append(Character1())
         Character1_State.append("Walk")
         character1_index += 1
+        gold-=15
 
     if 140<mouse_x<230 and 20 <mouse_y<120:
         character2.append(Character2())
         Character2_State.append("Walk")
         character2_index += 1
-
+        gold-=30
 
     if 260<mouse_x<360 and 20<mouse_y<120:
         character3.append(Character3())
         Character3_State.append("Walk")
         character3_index += 1
-
+        gold-=50
 
     if 380<mouse_x<470 and 20<mouse_y<120:
         character4.append(Character4())
         Character4_State.append("Walk")
         character4_index += 1
-
+        gold-=100
 
 
 def handle_events(frame_time):
@@ -247,7 +253,9 @@ def update(frame_time):
     global Zombie_State,Vampire_State,Skeleton_State,Golem_State
     global Character1_Statea,Character2_Statea,Character3_Statea,Character4_Statea
     global Character1_State,Character2_State,Character3_State,Character4_State
-    global team_gate
+    global team_gate,enemy_gate,gold
+
+    gold+=(8*frame_time)
 
     for x in range(0,enemy1_index):
         zombie[x].update(frame_time)
@@ -289,6 +297,7 @@ def update(frame_time):
                         character1_index -= 1
                         zombie[x].Receive_State("Walk")
                     elif zombie[x].damaged(character1[a], frame_time) == True :
+                        # zombie[x].Receive_State("Die")
                         zombie.pop(x)
                         Zombie_State.pop(x)
                         enemy1_index-=1
@@ -660,10 +669,18 @@ def draw(frame_time):
     global enemy1_index,enemy2_index,enemy3_index,enemy4_index
     global character1_index,character2_index,character3_index,character4_index
     global Zombie_State,Vampire_State,Skeleton_State,Golem_State
+    global gold
 
     clear_canvas()
     background.draw()
     characterUI.draw(250,735)
+    goldbar.draw(562,780)
+    font.draw(65,677,'15')
+    font.draw(190,677,'30')
+    font.draw(300,677,'50')
+    font.draw(415,677,'100')
+    font.draw(570, 780, '%1.f' % gold)
+
     enemy_gate.draw()
     enemy_gate.draw_bb()
     team_gate.draw()
