@@ -27,10 +27,10 @@ class Zombie:
         self.damage=5
 
 
-        self.die=load_image("resource\\enemy\\zombie\\die.png")
-        self.walk=load_image("resource\\enemy\\zombie\\walk.png")
-        self.attack=load_image("resource\\enemy\\zombie\\attack.png")
-        self.appear=load_image("resource\\enemy\\zombie\\appear.png")
+        self.die=load_image("resource\\enemy\\zombie\\z_die.png")
+        self.walk=load_image("resource\\enemy\\zombie\\z_walk.png")
+        self.attack=load_image("resource\\enemy\\zombie\\z_attack.png")
+        self.appear=load_image("resource\\enemy\\zombie\\z_appear.png")
 
         self.start=1
         self.total_frames=0.0
@@ -158,10 +158,10 @@ class Vampire:
         self.damage=10
         self.now_state = "Appear"
 
-        self.die=load_image("resource\\enemy\\vampire\\die.png")
-        self.walk=load_image("resource\\enemy\\vampire\\walk.png")
-        self.attack=load_image("resource\\enemy\\vampire\\attack.png")
-        self.appear=load_image("resource\\enemy\\vampire\\appear.png")
+        self.die=load_image("resource\\enemy\\vampire\\v_die.png")
+        self.walk=load_image("resource\\enemy\\vampire\\v_walk.png")
+        self.attack=load_image("resource\\enemy\\vampire\\v_attack.png")
+        self.appear=load_image("resource\\enemy\\vampire\\v_appear.png")
 
         self.start=1
         self.total_frames=0.0
@@ -280,10 +280,10 @@ class Skeleton:
         self.damage=15
         self.now_state = "Appear"
 
-        self.die=load_image("resource\\enemy\\skeleton\\die.png")
-        self.walk=load_image("resource\\enemy\\skeleton\\walk.png")
-        self.attack=load_image("resource\\enemy\\skeleton\\attack.png")
-        self.appear=load_image("resource\\enemy\\skeleton\\appear.png")
+        self.die=load_image("resource\\enemy\\skeleton\\s_die.png")
+        self.walk=load_image("resource\\enemy\\skeleton\\s_walk.png")
+        self.attack=load_image("resource\\enemy\\skeleton\\s_attack.png")
+        self.appear=load_image("resource\\enemy\\skeleton\\s_appear.png")
 
         self.start=1
         self.total_frames=0.0
@@ -402,10 +402,10 @@ class Golem:
         self.damage=20
         self.now_state = "Appear"
 
-        self.die=load_image("resource\\enemy\\golem\\die.png")
-        self.walk=load_image("resource\\enemy\\golem\\walk.png")
-        self.attack=load_image("resource\\enemy\\golem\\attack.png")
-        self.appear=load_image("resource\\enemy\\golem\\appear.png")
+        self.die=load_image("resource\\enemy\\golem\\g_die.png")
+        self.walk=load_image("resource\\enemy\\golem\\g_walk.png")
+        self.attack=load_image("resource\\enemy\\golem\\g_attack.png")
+        self.appear=load_image("resource\\enemy\\golem\\g_appear.png")
 
         self.start=1
         self.total_frames=0.0

@@ -18,7 +18,6 @@ class Character1:
 
     now_state="Walk"
 
-
     def __init__(self):
         self.x=100
         self.y=140
@@ -33,9 +32,9 @@ class Character1:
         self.start=2
         self.now_state = "Walk"
 
-        self.die=load_image("resource\\team\\ch1\\die.png")
-        self.walk=load_image("resource\\team\\ch1\\walk.png")
-        self.attack=load_image("resource\\team\\ch1\\attack.png")
+        self.die=load_image("resource\\team\\ch1\\c1_die.png")
+        self.walk=load_image("resource\\team\\ch1\\c1_walk.png")
+        self.attack=load_image("resource\\team\\ch1\\c1_attack.png")
 
     def Send_State(self):
         return str(self.now_state)
@@ -45,6 +44,7 @@ class Character1:
 
     def Attack(self):
         return self.attack_frame
+
 
     def update(self,frame_time):
         distance=Character1.RUN_SPEED_PPS*frame_time
@@ -143,9 +143,9 @@ class Character2:
         self.attack_frame=0
         self.start=2
 
-        self.die = load_image("resource\\team\\ch2\\die.png")
-        self.walk = load_image("resource\\team\\ch2\\walk.png")
-        self.attack = load_image("resource\\team\\ch2\\attack.png")
+        self.die = load_image("resource\\team\\ch2\\c2_die.png")
+        self.walk = load_image("resource\\team\\ch2\\c2_walk.png")
+        self.attack = load_image("resource\\team\\ch2\\c2_attack.png")
 
     def Send_State(self):
         return self.now_state
@@ -250,9 +250,9 @@ class Character3:
         self.attack_frame=0
         self.start=2
 
-        self.die=load_image("resource\\team\\ch3\\die.png")
-        self.walk=load_image("resource\\team\\ch3\\walk.png")
-        self.attack=load_image("resource\\team\\ch3\\attack.png")
+        self.die=load_image("resource\\team\\ch3\\c3_die.png")
+        self.walk=load_image("resource\\team\\ch3\\c3_walk.png")
+        self.attack=load_image("resource\\team\\ch3\\c3_attack.png")
 
     def Send_State(self):
         return self.now_state
@@ -355,9 +355,9 @@ class Character4:
         self.attack_frame=0
         self.start=2
 
-        self.die=load_image("resource\\team\\ch4\\die.png")
-        self.walk=load_image("resource\\team\\ch4\\walk.png")
-        self.attack=load_image("resource\\team\\ch4\\attack.png")
+        self.die=load_image("resource\\team\\ch4\\c4_die.png")
+        self.walk=load_image("resource\\team\\ch4\\c4_walk.png")
+        self.attack=load_image("resource\\team\\ch4\\c4_attack.png")
 
     def Send_State(self):
         return self.now_state
