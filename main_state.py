@@ -2,7 +2,7 @@ import random
 import json
 import time
 
-
+from skill import *
 from enemy import *
 from team import *
 from gate import *
@@ -74,7 +74,9 @@ def enter():
     global character1,character2,character3,character4
     global characterUI
     global zombie_StartTime,vampire_StartTime,skeleton_StartTime,golem_StartTime
-    global bgm,enemy_gate,team_gate
+    global bgm,enemy_gate,team_gate,skill1
+
+    skill1=Skill1()
 
     font=load_font('ENCR10B.ttf')
     bgm=load_music('sound\\main_BGM.mp3')
@@ -158,31 +160,29 @@ def monster_create_Time():
     golem_EndTime = time.time()
 
     # zombie_checktime = int(zombie_EndTime - zombie_StartTime)
-    if( int(zombie_EndTime - zombie_StartTime) == 5 ):
+    if( int(zombie_EndTime - zombie_StartTime) == 4  ):
             zombie.append(Zombie())
             Zombie_State.append("Appear")
             enemy1_index += 1
             zombie_StartTime = time.time()
-    # vampire_checktime = int(vampire_EndTime - vampire_StartTime)
+    vampire_checktime = int(vampire_EndTime - vampire_StartTime)
     if( int(vampire_EndTime - vampire_StartTime) == 10):
             vampire.append(Vampire())
             Vampire_State.append("Appear")
             enemy2_index+=1
             vampire_StartTime = time.time()
     # skeleton_checktime = int(skeleton_EndTime - skeleton_StartTime)
-    if( int(skeleton_EndTime - skeleton_StartTime) == 20 ):
+    if( int(skeleton_EndTime - skeleton_StartTime) == 22 ):
             skeleton.append(Skeleton())
             Skeleton_State.append("Appear")
             enemy3_index += 1
             skeleton_StartTime = time.time()
     # golem_checktime = int(golem_EndTime - golem_StartTime)
-    if( int(golem_EndTime - golem_StartTime) == 30 ):
+    if( int(golem_EndTime - golem_StartTime) == 33 ):
             golem.append(Golem())
             Golem_State.append("Appear")
             enemy4_index += 1
             golem_StartTime = time.time()
-
-    # print(enemy1_index)
 
 def exit():
     global background,characterUI,font
@@ -190,8 +190,9 @@ def exit():
     global zombie,vampire,golem,skeleton,bgm
     global enemy_gate,team_gate
     global ch1_appear_sound,ch2_appear_sound,ch3_appear_sound,ch4_appear_sound
+    global skill1
 
-
+    del(skill1)
     del(font)
     del(characterUI)
     del(background)
@@ -225,42 +226,46 @@ def mouse_click():
     global gold
     global ch1_appear_sound,ch2_appear_sound,ch3_appear_sound,ch4_appear_sound
 
-    if 20<mouse_x<120 and 20<mouse_y<120:
-        character1.append(Character1())
-        Character1_State.append("Walk")
-        character1_index += 1
-        ch1_appear_sound=load_wav('sound\\ch1_appear.wav')
-        ch1_appear_sound.set_volume(64)
-        ch1_appear_sound.play(1)
-        gold-=15
+    if gold>=15:
+        if 20<mouse_x<120 and 20<mouse_y<120:
+            character1.append(Character1())
+            Character1_State.append("Walk")
+            character1_index += 1
+            ch1_appear_sound=load_wav('sound\\ch1_appear.wav')
+            ch1_appear_sound.set_volume(64)
+            ch1_appear_sound.play(1)
+            gold-=15
 
 
-    if 140<mouse_x<230 and 20 <mouse_y<120:
-        character2.append(Character2())
-        Character2_State.append("Walk")
-        character2_index += 1
-        ch1_appear_sound=load_wav('sound\\ch2_appear.wav')
-        ch1_appear_sound.set_volume(64)
-        ch1_appear_sound.play(1)
-        gold-=30
+    if gold>=30:
+        if 140<mouse_x<230 and 20 <mouse_y<120:
+            character2.append(Character2())
+            Character2_State.append("Walk")
+            character2_index += 1
+            ch1_appear_sound=load_wav('sound\\ch2_appear.wav')
+            ch1_appear_sound.set_volume(64)
+            ch1_appear_sound.play(1)
+            gold-=30
 
-    if 260<mouse_x<360 and 20<mouse_y<120:
-        character3.append(Character3())
-        Character3_State.append("Walk")
-        character3_index += 1
-        ch1_appear_sound=load_wav('sound\\ch3_appear.wav')
-        ch1_appear_sound.set_volume(64)
-        ch1_appear_sound.play(1)
-        gold-=50
+    if gold>=50:
+        if 260<mouse_x<360 and 20<mouse_y<120:
+            character3.append(Character3())
+            Character3_State.append("Walk")
+            character3_index += 1
+            ch1_appear_sound=load_wav('sound\\ch3_appear.wav')
+            ch1_appear_sound.set_volume(64)
+            ch1_appear_sound.play(1)
+            gold-=50
 
-    if 380<mouse_x<470 and 20<mouse_y<120:
-        character4.append(Character4())
-        Character4_State.append("Walk")
-        character4_index += 1
-        ch1_appear_sound=load_wav('sound\\ch4_appear.wav')
-        ch1_appear_sound.set_volume(64)
-        ch1_appear_sound.play(1)
-        gold-=100
+    if gold>=100:
+        if 380<mouse_x<470 and 20<mouse_y<120:
+            character4.append(Character4())
+            Character4_State.append("Walk")
+            character4_index += 1
+            ch1_appear_sound=load_wav('sound\\ch4_appear.wav')
+            ch1_appear_sound.set_volume(64)
+            ch1_appear_sound.play(1)
+            gold-=100
 
 
 def handle_events(frame_time):
@@ -283,7 +288,9 @@ def update(frame_time):
     global Character1_Statea,Character2_Statea,Character3_Statea,Character4_Statea
     global Character1_State,Character2_State,Character3_State,Character4_State
     global team_gate,enemy_gate,gold
+    global skiil1
 
+    skill1.update()
     gold+=(8*frame_time)
 
     for x in range(0,enemy1_index):
@@ -316,85 +323,89 @@ def update(frame_time):
     if (enemy1_index>=1):
         for x in range(0,enemy1_index):
             for a in range(0,character1_index):
-               if collide(character1[a],zombie[x])==True:
+               if collide(character1[a],zombie[x]) == True:
                     zombie[x].Receive_State("Attack")
                     Character1_Statea = "Attack"
                     character1[a].Receive_State(str(Character1_Statea))
-                    if character1[a].damaged(zombie[x], frame_time) == True :
+
+                    if character1[a].damaged(zombie[x], frame_time) == True:
                         character1.pop(a)
                         Character1_State.pop(a)
                         character1_index -= 1
-                        zombie[x].Receive_State("Walk")
-                    elif zombie[x].damaged(character1[a], frame_time) == True :
+                        for x in range(0,enemy1_index):
+                            zombie[x].Receive_State("Walk")
+
+                    if zombie[x].damaged(character1[a], frame_time) == True :
                         zombie.pop(x)
                         Zombie_State.pop(x)
                         enemy1_index-=1
-                        Character1_Statea = "Walk"
-                        character1[a].Receive_State(str(Character1_Statea))
-               elif collide(character1[a],zombie[x])==False:
-                      zombie[x].Receive_State("Walk")
-                      Character1_Statea = "Walk"
-                      character1[a].Receive_State(str(Character1_Statea))
+                        for a in range(0,character1_index):
+                            Character1_Statea = "Walk"
+                            character1[a].Receive_State(str(Character1_Statea))
+
             for b in range(0,character2_index):
                if collide(character2[b],zombie[x])==True:
                     zombie[x].Receive_State("Attack")
                     Character2_Statea = "Attack"
                     character2[b].Receive_State(str(Character2_Statea))
+
                     if character2[b].damaged(zombie[x], frame_time) == True :
                         character2.pop(b)
                         Character2_State.pop(b)
                         character2_index -= 1
-                        zombie[x].Receive_State("Walk")
-                    elif zombie[x].damaged(character2[b], frame_time) == True :
+                        for x in range(0,enemy1_index):
+                            zombie[x].Receive_State("Walk")
+
+                    if zombie[x].damaged(character2[b], frame_time) == True :
                         zombie.pop(x)
                         Zombie_State.pop(x)
                         enemy1_index-=1
-                        Character2_Statea = "Walk"
-                        character2[b].Receive_State(str(Character2_Statea))
-               elif collide(character2[b],zombie[x])==False:
-                    zombie[x].Receive_State("Walk")
-                    Character2_Statea = "Walk"
-                    character2[b].Receive_State(str(Character2_Statea))
+                        for b in range(0,character2_index):
+                            Character2_Statea = "Walk"
+                            character2[b].Receive_State(str(Character2_Statea))
+
             for c in range(0,character3_index):
                if collide(character3[c],zombie[x])==True:
                     zombie[x].Receive_State("Attack")
                     Character3_Statea = "Attack"
                     character3[c].Receive_State(str(Character3_Statea))
+
                     if character3[c].damaged(zombie[x], frame_time) == True :
                         character3.pop(c)
                         Character3_State.pop(c)
                         character3_index -= 1
-                        zombie[x].Receive_State("Walk")
-                    elif zombie[x].damaged(character3[c], frame_time) == True :
+                        for x in range(0,enemy1_index):
+                            zombie[x].Receive_State("Walk")
+
+                    if zombie[x].damaged(character3[c], frame_time) == True :
                         zombie.pop(x)
                         Zombie_State.pop(x)
                         enemy1_index-=1
-                        Character3_Statea = "Walk"
-                        character3[c].Receive_State(str(Character3_Statea))
-               elif collide(character3[c],zombie[x])==False:
-                    zombie[x].Receive_State("Walk")
-                    Character3_Statea = "Walk"
-                    character3[c].Receive_State(str(Character3_Statea))
+                        for c in range(0,character3_index):
+                            Character3_Statea = "Walk"
+                            character3[c].Receive_State(str(Character3_Statea))
+
             for d in range(0,character4_index):
                if collide(character4[d],zombie[x])==True:
                     zombie[x].Receive_State("Attack")
                     Character4_Statea = "Attack"
                     character4[d].Receive_State(str(Character4_Statea))
+
                     if character4[d].damaged(zombie[x], frame_time) == True :
                         character4.pop(d)
                         Character4_State.pop(d)
                         character4_index -= 1
-                        zombie[x].Receive_State("Walk")
-                    elif zombie[x].damaged(character4[d], frame_time) == True :
+                        for z in range(0,enemy1_index):
+                            zombie[z].Receive_State("Walk")
+
+                    if zombie[x].damaged(character4[d], frame_time) == True :
                         zombie.pop(x)
                         Zombie_State.pop(x)
                         enemy1_index-=1
-                        Character4_Statea = "Walk"
-                        character4[d].Receive_State(str(Character4_Statea))
-               elif collide(character4[d],zombie[x])==False:
-                    zombie[x].Receive_State("Walk")
-                    Character4_Statea = "Walk"
-                    character4[d].Receive_State(str(Character4_Statea))
+                        for d in range(0,character4_index):
+                            Character4_Statea = "Walk"
+                            character4[d].Receive_State(str(Character4_Statea))
+
 
     if (enemy2_index>=1):
         for y in range(0,enemy2_index):
@@ -403,81 +414,85 @@ def update(frame_time):
                     vampire[y].Receive_State("Attack")
                     Character1_Statea = "Attack"
                     character1[a].Receive_State(str(Character1_Statea))
+
                     if character1[a].damaged(vampire[y], frame_time) == True :
                         character1.pop(a)
                         Character1_State.pop(a)
                         character1_index -= 1
-                        vampire[y].Receive_State("Walk")
-                    elif vampire[y].damaged(character1[a], frame_time) == True :
+                        for y in range(0,enemy2_index):
+                            vampire[y].Receive_State("Walk")
+
+                    if vampire[y].damaged(character1[a], frame_time) == True :
                         vampire.pop(y)
                         Vampire_State.pop(y)
                         enemy2_index-=1
-                        Character1_Statea = "Walk"
-                        character1[a].Receive_State(str(Character1_Statea))
-               elif collide(character1[a],vampire[y])==False:
-                    vampire[y].Receive_State("Walk")
-                    Character1_Statea = "Walk"
-                    character1[a].Receive_State(str(Character1_Statea))
+                        for a in range(0,character1_index):
+                            Character1_Statea = "Walk"
+                            character1[a].Receive_State(str(Character1_Statea))
+
             for b in range(0,character2_index):
                if collide(character2[b],vampire[y])==True:
                     vampire[y].Receive_State("Attack")
                     Character2_Statea = "Attack"
                     character2[b].Receive_State(str(Character2_Statea))
+
                     if character2[b].damaged(vampire[y], frame_time) == True :
                         character2.pop(b)
                         Character2_State.pop(b)
                         character2_index -= 1
-                        vampire[y].Receive_State("Walk")
-                    elif vampire[y].damaged(character2[b], frame_time) == True :
+                        for y in range(0,enemy2_index):
+                            vampire[y].Receive_State("Walk")
+
+                    if vampire[y].damaged(character2[b], frame_time) == True :
                         vampire.pop(y)
                         Vampire_State.pop(y)
                         enemy2_index-=1
-                        Character2_Statea = "Walk"
-                        character2[b].Receive_State(str(Character2_Statea))
-               elif collide(character2[b],vampire[y])==False:
-                    vampire[y].Receive_State("Walk")
-                    Character2_Statea = "Walk"
-                    character2[b].Receive_State(str(Character2_Statea))
+                        for b in range(0,character2_index):
+                            Character2_Statea = "Walk"
+                            character2[b].Receive_State(str(Character2_Statea))
+
             for c in range(0,character3_index):
                if collide(character3[c],vampire[y])==True:
                     vampire[y].Receive_State("Attack")
                     Character3_Statea = "Attack"
                     character3[c].Receive_State(str(Character3_Statea))
+
                     if character3[c].damaged(vampire[y], frame_time) == True :
                         character3.pop(c)
                         Character3_State.pop(c)
                         character3_index -= 1
-                        vampire[y].Receive_State("Walk")
-                    elif vampire[y].damaged(character3[c], frame_time) == True :
+                        for y in range(0,enemy2_index):
+                            vampire[y].Receive_State("Walk")
+
+                    if vampire[y].damaged(character3[c], frame_time) == True :
                         vampire.pop(y)
                         Vampire_State.pop(y)
                         enemy2_index-=1
-                        Character3_Statea = "Walk"
-                        character3[c].Receive_State(str(Character3_Statea))
-               elif collide(character3[c],vampire[y])==False:
-                    vampire[y].Receive_State("Walk")
-                    Character3_Statea = "Walk"
-                    character3[c].Receive_State(str(Character3_Statea))
+                        for c in range(0,character3_index):
+                            Character3_Statea = "Walk"
+                            character3[c].Receive_State(str(Character3_Statea))
+
             for d in range(0,character4_index):
                if collide(character4[d],vampire[y])==True:
                     vampire[y].Receive_State("Attack")
                     Character4_Statea = "Attack"
                     character4[d].Receive_State(str(Character4_Statea))
+
                     if character4[d].damaged(vampire[y], frame_time) == True :
                         character4.pop(d)
                         Character4_State.pop(d)
                         character4_index -= 1
-                        vampire[y].Receive_State("Walk")
-                    elif vampire[y].damaged(character4[d], frame_time) == True :
+                        for y in range(0,enemy2_index):
+                            vampire[y].Receive_State("Walk")
+
+                    if vampire[y].damaged(character4[d], frame_time) == True :
                         vampire.pop(y)
                         Vampire_State.pop(y)
                         enemy2_index-=1
-                        Character4_Statea = "Walk"
-                        character4[d].Receive_State(str(Character4_Statea))
-               elif collide(character4[d],vampire[y])==False:
-                    vampire[y].Receive_State("Walk")
-                    Character4_Statea = "Walk"
-                    character4[d].Receive_State(str(Character4_Statea))
+                        for d in range(0,character4_index):
+                            Character4_Statea = "Walk"
+                            character4[d].Receive_State(str(Character4_Statea))
+
     if (enemy3_index>=1):
         for w in range(0,enemy3_index):
             for a in range(0,character1_index):
@@ -485,81 +500,85 @@ def update(frame_time):
                     skeleton[w].Receive_State("Attack")
                     Character1_Statea = "Attack"
                     character1[a].Receive_State(str(Character1_Statea))
+
                     if character1[a].damaged(skeleton[w], frame_time) == True :
                         character1.pop(a)
                         Character1_State.pop(a)
                         character1_index -= 1
-                        skeleton[w].Receive_State("Walk")
-                    elif skeleton[w].damaged(character1[a], frame_time) == True :
+                        for w in range(0,enemy3_index):
+                            skeleton[w].Receive_State("Walk")
+
+                    if skeleton[w].damaged(character1[a], frame_time) == True :
                         skeleton.pop(w)
                         Skeleton_State.pop(w)
                         enemy3_index-=1
-                        Character1_Statea = "Walk"
-                        character1[a].Receive_State(str(Character1_Statea))
-               elif collide(character1[a],skeleton[w])==False:
-                    skeleton[w].Receive_State("Walk")
-                    Character1_Statea = "Walk"
-                    character1[a].Receive_State(str(Character1_Statea))
+                        for a in range(0,character1_index):
+                            Character1_Statea = "Walk"
+                            character1[a].Receive_State(str(Character1_Statea))
+
             for b in range(0,character2_index):
                if collide(character2[b],skeleton[w])==True:
                     skeleton[w].Receive_State("Attack")
                     Character2_Statea = "Attack"
                     character2[b].Receive_State(str(Character2_Statea))
+
                     if character2[b].damaged(skeleton[w], frame_time) == True :
                         character2.pop(b)
                         Character2_State.pop(b)
                         character2_index -= 1
-                        skeleton[w].Receive_State("Walk")
-                    elif skeleton[w].damaged(character2[b], frame_time) == True :
+                        for w in range(0,enemy3_index):
+                            skeleton[w].Receive_State("Walk")
+
+                    if skeleton[w].damaged(character2[b], frame_time) == True :
                         skeleton.pop(w)
                         Skeleton_State.pop(w)
                         enemy3_index-=1
-                        Character2_Statea = "Walk"
-                        character2[b].Receive_State(str(Character2_Statea))
-               elif collide(character2[b],skeleton[w])==False:
-                    skeleton[w].Receive_State("Walk")
-                    Character2_Statea = "Walk"
-                    character2[b].Receive_State(str(Character2_Statea))
+                        for b in range(0,character2_index):
+                            Character2_Statea = "Walk"
+                            character2[b].Receive_State(str(Character2_Statea))
+
             for c in range(0,character3_index):
                if collide(character3[c],skeleton[w])==True:
                     skeleton[w].Receive_State("Attack")
                     Character3_Statea = "Attack"
                     character3[c].Receive_State(str(Character3_Statea))
+
                     if character3[c].damaged(skeleton[w], frame_time) == True :
                         character3.pop(c)
                         Character3_State.pop(c)
                         character3_index -= 1
-                        skeleton[w].Receive_State("Walk")
-                    elif skeleton[w].damaged(character3[c], frame_time) == True :
+                        for w in range(0,enemy3_index):
+                            skeleton[w].Receive_State("Walk")
+
+                    if skeleton[w].damaged(character3[c], frame_time) == True :
                         skeleton.pop(w)
                         Skeleton_State.pop(w)
                         enemy3_index-=1
-                        Character3_Statea = "Walk"
-                        character3[c].Receive_State(str(Character3_Statea))
-               elif collide(character3[c],skeleton[w])==False:
-                    skeleton[w].Receive_State("Walk")
-                    Character3_Statea = "Walk"
-                    character3[c].Receive_State(str(Character3_Statea))
+                        for c in range(0,character3_index):
+                            Character3_Statea = "Walk"
+                            character3[c].Receive_State(str(Character3_Statea))
+
             for d in range(0,character4_index):
                if collide(character4[d],skeleton[w])==True:
                     skeleton[w].Receive_State("Attack")
                     Character4_Statea = "Attack"
                     character4[d].Receive_State(str(Character4_Statea))
+
                     if character4[d].damaged(skeleton[w], frame_time) == True :
                         character4.pop(d)
                         Character4_State.pop(d)
                         character4_index -= 1
-                        skeleton[w].Receive_State("Walk")
-                    elif skeleton[w].damaged(character4[d], frame_time) == True :
+                        for w in range(0,enemy3_index):
+                            skeleton[w].Receive_State("Walk")
+
+                    if skeleton[w].damaged(character4[d], frame_time) == True :
                         skeleton.pop(w)
                         Skeleton_State.pop(w)
                         enemy3_index-=1
-                        Character4_Statea = "Walk"
-                        character4[d].Receive_State(str(Character4_Statea))
-               elif collide(character4[d],skeleton[w])==False:
-                    skeleton[w].Receive_State("Walk")
-                    Character4_Statea = "Walk"
-                    character4[d].Receive_State(str(Character4_Statea))
+                        for d in range(0,character4_index):
+                            Character4_Statea = "Walk"
+                            character4[d].Receive_State(str(Character4_Statea))
+
     if (enemy4_index>=1):
         for z in range(0,enemy4_index):
             for a in range(0,character1_index):
@@ -567,81 +586,112 @@ def update(frame_time):
                     golem[z].Receive_State("Attack")
                     Character1_Statea = "Attack"
                     character1[a].Receive_State(str(Character1_Statea))
+
                     if character1[a].damaged(golem[z], frame_time) == True :
                         character1.pop(a)
                         Character1_State.pop(a)
                         character1_index -= 1
-                        golem[z].Receive_State("Walk")
-                    elif golem[z].damaged(character1[a], frame_time) == True :
+                        for z in range(0,enemy4_index):
+                            golem[z].Receive_State("Walk")
+
+                    if golem[z].damaged(character1[a], frame_time) == True :
                         golem.pop(z)
                         Golem_State.pop(z)
                         enemy4_index-=1
-                        Character1_Statea = "Walk"
-                        character1[a].Receive_State(str(Character1_Statea))
-               elif collide(character1[a],golem[z])==False:
-                    golem[z].Receive_State("Walk")
-                    Character1_Statea = "Walk"
-                    character1[a].Receive_State(str(Character1_Statea))
+                        for a in range(0,character1_index):
+                            Character1_Statea = "Walk"
+                            character1[a].Receive_State(str(Character1_Statea))
+
             for b in range(0,character2_index):
                if collide(character2[b],golem[z])==True:
                     golem[z].Receive_State("Attack")
                     Character2_Statea = "Attack"
                     character2[b].Receive_State(str(Character2_Statea))
+
                     if character2[b].damaged(golem[z], frame_time) == True :
                         character2.pop(b)
                         Character2_State.pop(b)
                         character2_index -= 1
-                        golem[z].Receive_State("Walk")
-                    elif golem[z].damaged(character2[b], frame_time) == True :
+                        for z in range(0,enemy4_index):
+                            golem[z].Receive_State("Walk")
+
+                    if golem[z].damaged(character2[b], frame_time) == True :
                         golem.pop(z)
                         Golem_State.pop(z)
                         enemy4_index-=1
-                        Character2_Statea = "Walk"
-                        character2[b].Receive_State(str(Character2_Statea))
-               elif collide(character2[b],golem[z])==False:
-                    golem[z].Receive_State("Walk")
-                    Character2_Statea = "Walk"
-                    character2[b].Receive_State(str(Character2_Statea))
+                        for b in range(0,character2_index):
+                            Character2_Statea = "Walk"
+                            character2[b].Receive_State(str(Character2_Statea))
+
             for c in range(0,character3_index):
                if collide(character3[c],golem[z])==True:
                     golem[z].Receive_State("Attack")
                     Character3_Statea = "Attack"
                     character3[c].Receive_State(str(Character3_Statea))
+
                     if character3[c].damaged(golem[z], frame_time) == True :
                         character3.pop(c)
                         Character3_State.pop(c)
                         character3_index -= 1
-                        golem[z].Receive_State("Walk")
-                    elif golem[z].damaged(character3[c], frame_time) == True :
+                        for z in range(0,enemy4_index):
+                            golem[z].Receive_State("Walk")
+
+                    if golem[z].damaged(character3[c], frame_time) == True :
                         golem.pop(z)
                         Golem_State.pop(z)
                         enemy4_index-=1
-                        Character3_Statea = "Walk"
-                        character3[c].Receive_State(str(Character3_Statea))
-               elif collide(character3[c],golem[z])==False:
-                    golem[z].Receive_State("Walk")
-                    Character3_Statea = "Walk"
-                    character3[c].Receive_State(str(Character3_Statea))
+                        for c in range(0,character3_index):
+                            Character3_Statea = "Walk"
+                            character3[c].Receive_State(str(Character3_Statea))
+
             for d in range(0,character4_index):
                if collide(character4[d],golem[z])==True:
                     golem[z].Receive_State("Attack")
                     Character4_Statea = "Attack"
                     character4[d].Receive_State(str(Character4_Statea))
+
                     if character4[d].damaged(golem[z], frame_time) == True :
                         character4.pop(d)
                         Character4_State.pop(d)
                         character4_index -= 1
-                        golem[z].Receive_State("Walk")
+                        for z in range(0,enemy4_index):
+                            golem[z].Receive_State("Walk")
+
                     elif golem[z].damaged(character4[d], frame_time) == True :
                         golem.pop(z)
                         Golem_State.pop(z)
                         enemy4_index-=1
-                        Character4_Statea = "Walk"
-                        character4[d].Receive_State(str(Character4_Statea))
-               elif collide(character4[d],golem[z])==False:
-                    golem[z].Receive_State("Walk")
-                    Character4_Statea = "Walk"
-                    character4[d].Receive_State(str(Character4_Statea))
+                        for d in range(0,character4_index):
+                            Character4_Statea = "Walk"
+                            character4[d].Receive_State(str(Character4_Statea))
+
+
+
+    if (character1_index==0 and character2_index==0 and character3_index==0 and character4_index==0  ):
+        for x in range(0,enemy1_index):
+            zombie[x].Receive_State("Walk")
+        for y in range(0,enemy2_index):
+            vampire[y].Receive_State("Walk")
+        for w in range(0,enemy3_index):
+            skeleton[w].Receive_State("Walk")
+        for z in range(0,enemy4_index):
+            golem[z].Receive_State("Walk")
+
+    if (enemy1_index==0 and enemy2_index==0 and enemy3_index==0 and enemy4_index==0):
+        for a in range(0,character1_index):
+            Character1_Statea = "Walk"
+            character1[a].Receive_State(str(Character1_Statea))
+        for b in range(0,character2_index):
+            Character2_Statea = "Walk"
+            character2[b].Receive_State(str(Character2_Statea))
+        for c in range(0,character3_index):
+            Character3_Statea = "Walk"
+            character3[c].Receive_State(str(Character3_Statea))
+        for d in range(0,character4_index):
+            Character4_Statea = "Walk"
+            character4[d].Receive_State(str(Character4_Statea))
+
+
     for x in range(0,enemy1_index):
         if collide(team_gate,zombie[x]):
                     zombie[x].Receive_State("Attack")
@@ -687,7 +737,21 @@ def update(frame_time):
                     if enemy_gate.damaged(character4[d], frame_time) == True :
                         close_canvas()
 
-
+               #      if character1[a].damaged(zombie[x], frame_time) == True :
+               #          character1.pop(a)
+               #          Character1_State.pop(a)
+               #          character1_index -= 1
+               #          zombie[x].Receive_State("Walk")
+               #      elif zombie[x].damaged(character1[a], frame_time) == True :
+               #          zombie.pop(x)
+               #          Zombie_State.pop(x)
+               #          enemy1_index-=1
+               #          Character1_Statea = "Walk"
+               #          character1[a].Receive_State(str(Character1_Statea))
+               # elif collide(character1[a],zombie[x])==False:
+               #        zombie[x].Receive_State("Walk")
+               #        Character1_Statea = "Walk"
+               #        character1[a].Receive_State(str(Character1_Statea))
 
 
 
@@ -697,7 +761,7 @@ def draw(frame_time):
     global enemy1_index,enemy2_index,enemy3_index,enemy4_index
     global character1_index,character2_index,character3_index,character4_index
     global Zombie_State,Vampire_State,Skeleton_State,Golem_State
-    global gold
+    global gold,skill1
 
     clear_canvas()
     background.draw()
@@ -713,6 +777,7 @@ def draw(frame_time):
     enemy_gate.draw_bb()
     team_gate.draw()
     team_gate.draw_bb()
+    skill1.draw()
 
     for x in range(0,enemy1_index):
         if Zombie_State[x]=="Appear":

@@ -18,11 +18,12 @@ class Character1:
 
     now_state="Walk"
 
+
     def __init__(self):
         self.x=100
         self.y=140
-        self.hp=30
-        self.damage=5
+        self.hp=20
+        self.damage=6
         self.damage_time = 0
 
         self.total_frames=0.0
@@ -32,7 +33,6 @@ class Character1:
         self.start=2
         self.now_state = "Walk"
 
-        self.die=load_image("resource\\team\\ch1\\c1_die.png")
         self.walk=load_image("resource\\team\\ch1\\c1_walk.png")
         self.attack=load_image("resource\\team\\ch1\\c1_attack.png")
 
@@ -59,14 +59,12 @@ class Character1:
             self.start=0
             self.attack_frame= int(self.total_frames)%5
 
-        if self.now_state=="Die":
-            self.die_frame= int(self.total_frames)%7
 
     def damaged(self, zombie, frame_time):
         self.damage_time += frame_time
 
         if zombie.attack_frame == 0:
-            if self.damage_time > 1:
+            if self.damage_time > 0.1:
                 self.damage_time = 0
                 self.hp -= zombie.damage
                 if self.hp <= 0 : return True
@@ -76,7 +74,7 @@ class Character1:
         self.damage_time += frame_time
 
         if vampire.attack_frame == 0:
-            if self.damage_time > 1:
+            if self.damage_time > 0.1:
                 self.damage_time = 0
                 self.hp -= vampire.damage
                 if self.hp <= 0 : return True
@@ -86,7 +84,7 @@ class Character1:
         self.damage_time += frame_time
 
         if skeleton.attack_frame == 0:
-            if self.damage_time > 1:
+            if self.damage_time > 0.1:
                 self.damage_time = 0
                 self.hp -= skeleton.damage
                 if self.hp <= 0 : return True
@@ -96,7 +94,7 @@ class Character1:
         self.damage_time += frame_time
 
         if golem.attack_frame == 0:
-            if self.damage_time > 1:
+            if self.damage_time > 0.1:
                 self.damage_time = 0
                 self.hp -= golem.damage
                 if self.hp <= 0 : return True
@@ -132,7 +130,7 @@ class Character2:
         self.x=120
         self.y=120
         self.hp=70
-        self.damage=10
+        self.damage=13
         self.damage_time = 0
         self.now_state="Walk"
 
@@ -143,7 +141,6 @@ class Character2:
         self.attack_frame=0
         self.start=2
 
-        self.die = load_image("resource\\team\\ch2\\c2_die.png")
         self.walk = load_image("resource\\team\\ch2\\c2_walk.png")
         self.attack = load_image("resource\\team\\ch2\\c2_attack.png")
 
@@ -167,14 +164,12 @@ class Character2:
         if self.now_state=="Attack":
             self.start=0
             self.attack_frame=int(self.total_frames)%7
-        if self.now_state=="Die":
-            self.die_frame=int(self.total_frames)&8
 
     def damaged(self, zombie, frame_time):
         self.damage_time += frame_time
 
         if zombie.attack_frame == 0:
-            if self.damage_time > 1:
+            if self.damage_time > 0.1:
                 self.damage_time = 0
                 self.hp -= zombie.damage
                 if self.hp <= 0 : return True
@@ -184,7 +179,7 @@ class Character2:
         self.damage_time += frame_time
 
         if vampire.attack_frame == 0:
-            if self.damage_time > 1:
+            if self.damage_time > 0.1:
                 self.damage_time = 0
                 self.hp -= vampire.damage
                 if self.hp <= 0 : return True
@@ -194,7 +189,7 @@ class Character2:
         self.damage_time += frame_time
 
         if skeleton.attack_frame == 0:
-            if self.damage_time > 1:
+            if self.damage_time > 0.1:
                 self.damage_time = 0
                 self.hp -= skeleton.damage
                 if self.hp <= 0 : return True
@@ -204,7 +199,7 @@ class Character2:
         self.damage_time += frame_time
 
         if golem.attack_frame == 0:
-            if self.damage_time > 1:
+            if self.damage_time > 0.1:
                 self.damage_time = 0
                 self.hp -= golem.damage
                 if self.hp <= 0 : return True
@@ -216,8 +211,6 @@ class Character2:
     def draw_bb(self):
         draw_rectangle(*self.get_bb())
 
-    def draw_die(self):
-        self.die.clip_draw(self.die_frame *384 , 0,384, 384, self.x, 205)
     def draw_walk(self):
         self.walk.clip_draw(self.walk_frame *288 , 0,  288, 288, self.x, 205)
     def draw_attack(self):
@@ -239,8 +232,8 @@ class Character3:
     def __init__(self):
         self.x=140
         self.y=120
-        self.hp=100
-        self.damage=20
+        self.hp=120
+        self.damage=25
         self.damage_time = 0
         self.now_state="Walk"
 
@@ -250,7 +243,6 @@ class Character3:
         self.attack_frame=0
         self.start=2
 
-        self.die=load_image("resource\\team\\ch3\\c3_die.png")
         self.walk=load_image("resource\\team\\ch3\\c3_walk.png")
         self.attack=load_image("resource\\team\\ch3\\c3_attack.png")
 
@@ -274,14 +266,12 @@ class Character3:
         if self.now_state=="Attack":
             self.start=0
             self.attack_frame=int(self.total_frames)%13
-        if self.now_state=="Die":
-            self.die_frame=int(self.total_frames)%7
 
     def damaged(self, zombie, frame_time):
         self.damage_time += frame_time
 
         if zombie.attack_frame == 0:
-            if self.damage_time > 1:
+            if self.damage_time > 0.1:
                 self.damage_time = 0
                 self.hp -= zombie.damage
                 if self.hp <= 0 : return True
@@ -291,7 +281,7 @@ class Character3:
         self.damage_time += frame_time
 
         if vampire.attack_frame == 0:
-            if self.damage_time > 1:
+            if self.damage_time > 0.1:
                 self.damage_time = 0
                 self.hp -= vampire.damage
                 if self.hp <= 0 : return True
@@ -301,7 +291,7 @@ class Character3:
         self.damage_time += frame_time
 
         if skeleton.attack_frame == 0:
-            if self.damage_time > 1:
+            if self.damage_time > 0.1:
                 self.damage_time = 0
                 self.hp -= skeleton.damage
                 if self.hp <= 0 : return True
@@ -311,7 +301,7 @@ class Character3:
         self.damage_time += frame_time
 
         if golem.attack_frame == 0:
-            if self.damage_time > 1:
+            if self.damage_time > 0.1:
                 self.damage_time = 0
                 self.hp -= golem.damage
                 if self.hp <= 0 : return True
@@ -345,8 +335,8 @@ class Character4:
     def __init__(self):
         self.x=160
         self.y=120
-        self.hp=150
-        self.damage=40
+        self.hp=180
+        self.damage=50
         self.damage_time = 0
 
         self.total_frames=0.0
@@ -355,7 +345,6 @@ class Character4:
         self.attack_frame=0
         self.start=2
 
-        self.die=load_image("resource\\team\\ch4\\c4_die.png")
         self.walk=load_image("resource\\team\\ch4\\c4_walk.png")
         self.attack=load_image("resource\\team\\ch4\\c4_attack.png")
 
@@ -379,14 +368,13 @@ class Character4:
         if self.now_state=="Attack":
             self.start=0
             self.attack_frame=int(self.total_frames)%10
-        if self.now_state=="Die":
-            self.die_frame=int(self.total_frames)%6
+
 
     def damaged(self, zombie, frame_time):
         self.damage_time += frame_time
 
         if zombie.attack_frame == 0:
-            if self.damage_time > 1:
+            if self.damage_time > 0.1:
                 self.damage_time = 0
                 self.hp -= zombie.damage
                 if self.hp <= 0 : return True
@@ -396,7 +384,7 @@ class Character4:
         self.damage_time += frame_time
 
         if vampire.attack_frame == 0:
-            if self.damage_time > 1:
+            if self.damage_time > 0.1:
                 self.damage_time = 0
                 self.hp -= vampire.damage
                 if self.hp <= 0 : return True
@@ -406,7 +394,7 @@ class Character4:
         self.damage_time += frame_time
 
         if skeleton.attack_frame == 0:
-            if self.damage_time > 1:
+            if self.damage_time > 0.1:
                 self.damage_time = 0
                 self.hp -= skeleton.damage
                 if self.hp <= 0 : return True
@@ -416,7 +404,7 @@ class Character4:
         self.damage_time += frame_time
 
         if golem.attack_frame == 0:
-            if self.damage_time > 1:
+            if self.damage_time > 0.1:
                 self.damage_time = 0
                 self.hp -= golem.damage
                 if self.hp <= 0 : return True
@@ -427,8 +415,6 @@ class Character4:
     def draw_bb(self):
         draw_rectangle(*self.get_bb())
 
-    def draw_die(self):
-        self.die.clip_draw(self.die_frame *384 , 0,384, 384, self.x,205)
     def draw_walk(self):
         self.walk.clip_draw(self.walk_frame *288 , 0,  288, 288, self.x, 205)
     def draw_attack(self):
