@@ -10,8 +10,8 @@ bgm=None
 
 def enter():
     global image,bgm
-    image=load_image('title_state1.png')
-    bgm=load_music('sound/title_BGM.mp3')
+    image=load_image('title_ending.png')
+    bgm=load_music('sound/end_BGM.mp3')
     bgm.set_volume(64)
     bgm.repeat_play()
 
@@ -50,10 +50,9 @@ def handle_events(frame_time):
             elif event.type == SDL_MOUSEMOTION:
                 mouse_x,mouse_y = event.x,800-event.y
             elif (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT):
-                if 600<mouse_x<1000 and 265<mouse_y<380:
-                     game_framework.change_state(main_state)
-                if 600<mouse_x<1000 and 135<mouse_y<250:
+                if 700<mouse_x<980 and 220<mouse_y<300:
                     game_framework.quit()
+
 
 
 

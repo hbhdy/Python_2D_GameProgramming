@@ -106,8 +106,7 @@ class Character1:
     def draw_bb(self):
         draw_rectangle(*self.get_bb())
 
-    def draw_die(self):
-        self.die.clip_draw(self.die_frame *384 , 0,384, 384, self.x, 206)
+
     def draw_attack(self):
         self.attack.clip_draw(self.attack_frame *288 , 0, 288, 288, self.x, 206)
     def draw_walk(self):
@@ -312,8 +311,7 @@ class Character3:
     def draw_bb(self):
         draw_rectangle(*self.get_bb())
 
-    def draw_die(self):
-        self.die.clip_draw(self.die_frame *384 , 0,384, 384, self.x, 205)
+
     def draw_walk(self):
         self.walk.clip_draw(self.walk_frame *288 , 0,  288, 288, self.x, 205)
     def draw_attack(self):
@@ -358,7 +356,7 @@ class Character4:
         return self.attack_frame
 
     def update(self,frame_time):
-        distance = Character4.RUN_SPEED_PPS * frame_time
+        distance = Character4.RUN_SPEED_PPS * frame_time*10
         self.total_frames += Character4.FRAMES_PER_ACTION * Character4.ACTION_PER_TIME * frame_time
 
         if self.now_state=="Walk":

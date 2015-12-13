@@ -70,14 +70,6 @@ class Zombie:
             self.start=0
             self.attack_frame=int(self.total_frames)%7
 
-        if self.now_state=="Die":
-            self.die_frame=int(self.total_frames)%8
-            # if ( self.die_frame == 8  and self.init_Start >= 4):
-            #     self.now_state = "Die"
-            # else:
-            #     self.init_Start += 1
-
-
     def damaged(self, character1, frame_time):
         self.damage_time += frame_time
 
@@ -130,8 +122,7 @@ class Zombie:
     def draw_bb(self):
         draw_rectangle(*self.get_bb())
 
-    def draw_die(self):
-        self.die.clip_draw(self.die_frame *325, 0, 325, 214,self.x, 170)
+
     def draw_walk(self):
         self.walk.clip_draw(self.walk_frame *140, 0, 140, 218, self.x,170)
     def draw_attack(self):
@@ -204,8 +195,7 @@ class Vampire:
             self.start=0
             self.attack_frame=int(self.total_frames)%9
 
-        if self.now_state=="Die":
-            self.die_frame=int(self.total_frames)%8
+
 
     def damaged(self, character1, frame_time):
         self.damage_time += frame_time
@@ -257,8 +247,6 @@ class Vampire:
     def draw_bb(self):
         draw_rectangle(*self.get_bb())
 
-    def draw_die(self):
-        self.die.clip_draw(self.die_frame *192 , 0, 192, 220, self.x, 170)
     def draw_walk(self):
         self.walk.clip_draw(self.walk_frame *120 , 0, 120, 215, self.x, 170)
     def draw_attack(self):
@@ -331,8 +319,7 @@ class Skeleton:
             self.start=0
             self.attack_frame = int(self.total_frames)%8
 
-        if self.now_state=="Die":
-            self.die_frame=int(self.total_frames)%8
+
 
     def damaged(self, character1, frame_time):
         self.damage_time += frame_time
@@ -384,8 +371,7 @@ class Skeleton:
     def draw_bb(self):
         draw_rectangle(*self.get_bb())
 
-    def draw_die(self):
-        self.die.clip_draw(self.die_frame *275 , 0,275, 220, self.x, 170)
+
     def draw_walk(self):
         self.walk.clip_draw(self.walk_frame *135 , 0, 135, 219, self.x, 170)
     def draw_attack(self):
@@ -459,8 +445,7 @@ class Golem:
             self.start=0
             self.attack_frame=int(self.total_frames)%6
 
-        if self.now_state=="Die":
-            self.die_frame==int(self.total_frames)%6
+
 
     def damaged(self, character1, frame_time):
         self.damage_time += frame_time
@@ -513,8 +498,7 @@ class Golem:
     def draw_bb(self):
         draw_rectangle(*self.get_bb())
 
-    def draw_die(self):
-        self.die.clip_draw(self.die_frame *300 , 0,300, 331, self.x, 190)
+
     def draw_walk(self):
         self.walk.clip_draw(self.walk_frame *320 , 0, 320, 245, self.x, 190)
     def draw_attack(self):

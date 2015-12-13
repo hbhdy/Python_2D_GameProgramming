@@ -1,5 +1,4 @@
 import random
-import json
 import time
 
 from skill import *
@@ -40,6 +39,9 @@ enemy2_index = 0
 enemy3_index = 0
 enemy4_index = 0
 team_index = 0
+
+
+main_game_over = False
 
 zombie_StartTime =0
 vampire_StartTime =0
@@ -328,6 +330,8 @@ def handle_events(frame_time):
             mouse_x,mouse_y = event.x,event.y
         elif (event.type, event.button) == (SDL_MOUSEBUTTONDOWN, SDL_BUTTON_LEFT):
              mouse_click()
+        if ( main_game_over == True):
+            game_framework.change_state(title_ending)
 
 
 
@@ -338,12 +342,12 @@ def update(frame_time):
     global Character1_Statea,Character2_Statea,Character3_Statea,Character4_Statea
     global Character1_State,Character2_State,Character3_State,Character4_State
     global team_gate,enemy_gate,gold
-    global skiil1,skill2,skill3,skill4
+    global skiil1,skill2,skill3,skill4,main_game_over
 
 
 
 
-    gold+=(6*frame_time)
+    gold+=(600*frame_time)
 
     for x in range(0,enemy1_index):
         zombie[x].update(frame_time)
@@ -786,46 +790,48 @@ def update(frame_time):
         if collide(team_gate,zombie[x]):
                     zombie[x].Receive_State("Attack")
                     if team_gate.damaged(zombie[x], frame_time) == True :
-                        close_canvas()
+                        main_game_over = True
     for y in range(0,enemy2_index):
         if collide(team_gate,vampire[y]):
                     vampire[y].Receive_State("Attack")
                     if team_gate.damaged(vampire[y], frame_time) == True :
-                        close_canvas()
+                        main_game_over = True
     for w in range(0,enemy3_index):
         if collide(team_gate,skeleton[w]):
                     skeleton[w].Receive_State("Attack")
                     if team_gate.damaged(skeleton[w], frame_time) == True :
-                        close_canvas()
+                        main_game_over = True
     for z in range(0,enemy4_index):
         if collide(team_gate,golem[z]):
                     golem[z].Receive_State("Attack")
                     if team_gate.damaged(golem[z], frame_time) == True :
-                        close_canvas()
+                        main_game_over = True
     for a in range(0,character1_index):
         if collide(enemy_gate,character1[a])==True:
                     Character1_Statea = "Attack"
                     character1[a].Receive_State(str(Character1_Statea))
                     if enemy_gate.damaged(character1[a], frame_time) == True :
-                        close_canvas()
+                        main_game_over = True
     for b in range(0,character2_index):
         if collide(enemy_gate,character2[b])==True:
                     Character2_Statea = "Attack"
                     character2[b].Receive_State(str(Character2_Statea))
                     if enemy_gate.damaged(character2[b], frame_time) == True :
-                        close_canvas()
+                        main_game_over = True
     for c in range(0,character3_index):
         if collide(enemy_gate,character3[c])==True:
                     Character3_Statea = "Attack"
                     character3[c].Receive_State(str(Character3_Statea))
                     if enemy_gate.damaged(character3[c], frame_time) == True :
-                        close_canvas()
+                        main_game_over = True
     for d in range(0,character4_index):
         if collide(enemy_gate,character4[d])==True:
                     Character4_Statea = "Attack"
                     character4[d].Receive_State(str(Character4_Statea))
                     if enemy_gate.damaged(character4[d], frame_time) == True :
-                        close_canvas()
+                        main_game_over = True
+
+
 
     skill1.update(frame_time)
     skill2.update(frame_time)
