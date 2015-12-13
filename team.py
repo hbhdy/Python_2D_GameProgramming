@@ -22,8 +22,8 @@ class Character1:
     def __init__(self):
         self.x=100
         self.y=140
-        self.hp=20
-        self.damage=6
+        self.hp=25
+        self.damage=5
         self.damage_time = 0
 
         self.total_frames=0.0

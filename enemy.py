@@ -22,7 +22,7 @@ class Zombie:
         self.x=1400
         self.y=140
         self.now_state = "Appear"
-        self.hp=20
+        self.hp=800
         self.damage_time = 0
         self.damage=5
 
@@ -118,6 +118,13 @@ class Zombie:
                 if self.hp <= 0 : return True
         return False
 
+    def damaged(self, skill1, frame_time):
+        self.hp -= skill1.damage
+        if self.hp <= 0:
+            return True
+
+
+
     def get_bb(self):
         return self.x-70,self.y-70,self.x+70,self.y+140
     def draw_bb(self):
@@ -150,7 +157,7 @@ class Vampire:
     def __init__(self):
         self.x=1400
         self.y=120
-        self.hp=50
+        self.hp=2000
         self.damage_time = 0
         self.damage=10
         self.now_state = "Appear"
@@ -240,6 +247,11 @@ class Vampire:
                 if self.hp <= 0 : return True
         return False
 
+    def damaged(self, skill2, frame_time):
+        self.hp -= skill2.damage
+        if self.hp <= 0:
+            return True
+
     def get_bb(self):
         return self.x-60,self.y-60,self.x+60,self.y+140
     def draw_bb(self):
@@ -272,7 +284,7 @@ class Skeleton:
     def __init__(self):
         self.x=1400
         self.y=120
-        self.hp=100
+        self.hp=3000
         self.damage_time = 0
         self.damage=15
         self.now_state = "Appear"
@@ -362,6 +374,11 @@ class Skeleton:
                 if self.hp <= 0 : return True
         return False
 
+    def damaged(self, skill3, frame_time):
+        self.hp -= skill3.damage
+        if self.hp <= 0:
+            return True
+
     def get_bb(self):
         return self.x-70,self.y-70,self.x+70,self.y+140
     def draw_bb(self):
@@ -394,7 +411,7 @@ class Golem:
     def __init__(self):
         self.x=1400
         self.y=140
-        self.hp=230
+        self.hp=6500
         self.damage_time = 0
         self.damage=20
         self.now_state = "Appear"
@@ -484,6 +501,12 @@ class Golem:
                 self.hp -= character4.damage
                 if self.hp <= 0 : return True
         return False
+
+    def damaged(self, skill4, frame_time):
+        self.hp -= skill4.damage
+        if self.hp <= 0:
+            return True
+
 
     def get_bb(self):
         return self.x-130,self.y-80,self.x+120,self.y+160

@@ -10,6 +10,7 @@ from gate import *
 from pico2d import *
 
 import game_framework
+import title_ending
 
 name = "MainState"
 
@@ -18,6 +19,10 @@ background=None
 bgm=None
 goldbar=None
 gold=0
+character1_count=0
+character2_count=0
+character3_count=0
+character4_count=0
 
 ch1_appear_sound=None
 ch2_appear_sound=None
@@ -72,12 +77,15 @@ def enter():
     global enemy1_index,enemy2_index,enemy3_index,enemy4_index
     global character1_index,character2_index,character3_index,character4_index
     global character1,character2,character3,character4
-    global characterUI
+    global characterUI,skillUI
     global zombie_StartTime,vampire_StartTime,skeleton_StartTime,golem_StartTime
-    global bgm,enemy_gate,team_gate,skill1
+    global bgm,enemy_gate,team_gate,skill1,skill2,skill3,skill4
+
 
     skill1=Skill1()
-
+    skill2=Skill2()
+    skill3=Skill3()
+    skill4=Skill4()
     font=load_font('ENCR10B.ttf')
     bgm=load_music('sound\\main_BGM.mp3')
     bgm.set_volume(64)
@@ -144,6 +152,7 @@ def enter():
 
     characterUI=load_image('UI\\characterUI.png')
     goldbar=load_image('UI\\goldbar.png')
+    skillUI=load_image('UI\\skillUI.png')
 
 
 def monster_create_Time():
@@ -165,36 +174,46 @@ def monster_create_Time():
             Zombie_State.append("Appear")
             enemy1_index += 1
             zombie_StartTime = time.time()
-    vampire_checktime = int(vampire_EndTime - vampire_StartTime)
-    if( int(vampire_EndTime - vampire_StartTime) == 10):
+    # vampire_checktime = int(vampire_EndTime - vampire_StartTime)
+    if( int(vampire_EndTime - vampire_StartTime) == 9):
             vampire.append(Vampire())
             Vampire_State.append("Appear")
             enemy2_index+=1
             vampire_StartTime = time.time()
     # skeleton_checktime = int(skeleton_EndTime - skeleton_StartTime)
-    if( int(skeleton_EndTime - skeleton_StartTime) == 22 ):
+    if( int(skeleton_EndTime - skeleton_StartTime) == 21 ):
             skeleton.append(Skeleton())
             Skeleton_State.append("Appear")
             enemy3_index += 1
             skeleton_StartTime = time.time()
     # golem_checktime = int(golem_EndTime - golem_StartTime)
-    if( int(golem_EndTime - golem_StartTime) == 33 ):
+    if( int(golem_EndTime - golem_StartTime) == 30 ):
             golem.append(Golem())
             Golem_State.append("Appear")
             enemy4_index += 1
             golem_StartTime = time.time()
 
 def exit():
-    global background,characterUI,font
+    global background,characterUI,font,skillUI
     global character1,character2,character3,character4
     global zombie,vampire,golem,skeleton,bgm
     global enemy_gate,team_gate
     global ch1_appear_sound,ch2_appear_sound,ch3_appear_sound,ch4_appear_sound
-    global skill1
+    global skill1,skill2,skill3,skill4,gold
+    global character1_count,character2_count,character3_count,character4_count
 
+    del(character1_count)
+    del(character2_count)
+    del(character3_count)
+    del(character4_count)
+    del(gold)
+    del(skill4)
+    del(skill3)
+    del(skill2)
     del(skill1)
     del(font)
     del(characterUI)
+    del(skillUI)
     del(background)
     del(character1)
     del(character2)
@@ -223,8 +242,35 @@ def resume():
 def mouse_click():
     global character1,character2,character3,character4
     global character1_index,character2_index,character3_index,character4_index
-    global gold
+    global gold,character1_count,character2_count,character3_count,character4_count
     global ch1_appear_sound,ch2_appear_sound,ch3_appear_sound,ch4_appear_sound
+    global skill1,skill2,skill3,skill4
+
+    if character1_count>=2:
+        if 10<mouse_x<70 and 150<mouse_y<190:
+            skill1.skill1_Attack()
+            skill1.skill1_Allow()
+            character1_count-=2
+
+    if character2_count>=2:
+        if 90<mouse_x<150 and 150<mouse_y<190:
+            skill2.skill2_Attack()
+            skill2.skill2_Allow()
+            character2_count-=2
+
+    if character3_count>=2:
+        if 170<mouse_x<230 and 150<mouse_y<190:
+            skill3.skill3_Attack()
+            skill3.skill3_Allow()
+            character3_count-=2
+
+    if character4_count>=2:
+        if 250<mouse_x<310 and 150<mouse_y<190:
+            skill4.skill4_Attack()
+            skill4.skill4_Allow()
+            character4_count-=2
+
+
 
     if gold>=15:
         if 20<mouse_x<120 and 20<mouse_y<120:
@@ -235,6 +281,7 @@ def mouse_click():
             ch1_appear_sound.set_volume(64)
             ch1_appear_sound.play(1)
             gold-=15
+            character1_count+=1
 
 
     if gold>=30:
@@ -246,6 +293,7 @@ def mouse_click():
             ch1_appear_sound.set_volume(64)
             ch1_appear_sound.play(1)
             gold-=30
+            character2_count+=1
 
     if gold>=50:
         if 260<mouse_x<360 and 20<mouse_y<120:
@@ -256,6 +304,7 @@ def mouse_click():
             ch1_appear_sound.set_volume(64)
             ch1_appear_sound.play(1)
             gold-=50
+            character3_count+=1
 
     if gold>=100:
         if 380<mouse_x<470 and 20<mouse_y<120:
@@ -266,6 +315,7 @@ def mouse_click():
             ch1_appear_sound.set_volume(64)
             ch1_appear_sound.play(1)
             gold-=100
+            character4_count+=1
 
 
 def handle_events(frame_time):
@@ -288,10 +338,12 @@ def update(frame_time):
     global Character1_Statea,Character2_Statea,Character3_Statea,Character4_Statea
     global Character1_State,Character2_State,Character3_State,Character4_State
     global team_gate,enemy_gate,gold
-    global skiil1
+    global skiil1,skill2,skill3,skill4
 
-    skill1.update()
-    gold+=(8*frame_time)
+
+
+
+    gold+=(6*frame_time)
 
     for x in range(0,enemy1_index):
         zombie[x].update(frame_time)
@@ -318,6 +370,44 @@ def update(frame_time):
     for d in range(0, character4_index):
         character4[d].update(frame_time)
         Character4_State[d] = character4[d].Send_State()
+
+    if (enemy1_index>=1):
+        for x in range(0,enemy1_index):
+            if collide(skill1,zombie[x])== True:
+                if zombie[x].damaged(skill1, frame_time) == True and skill1.get_skill1() == True and skill1.get_Attack1() == False:
+                    zombie.pop(x)
+                    Zombie_State.pop(x)
+                    enemy1_index-=1
+                skill1.skill1_Not()
+
+    if (enemy2_index>=1):
+        for y in range(0,enemy2_index):
+            if collide(skill2,vampire[y])== True:
+                if vampire[y].damaged(skill2, frame_time) == True and skill2.get_skill2() == True and skill2.get_Attack2() == False:
+                    vampire.pop(x)
+                    Vampire_State.pop(x)
+                    enemy2_index-=1
+                skill2.skill2_Not()
+
+    if (enemy3_index>=1):
+        for w in range(0,enemy3_index):
+            if collide(skill3,skeleton[w])== True:
+                if skeleton[w].damaged(skill3, frame_time) == True and skill3.get_skill3() == True and skill3.get_Attack3() == False:
+                    skeleton.pop(w)
+                    Skeleton_State.pop(w)
+                    enemy3_index-=1
+                skill3.skill3_Not()
+
+    if (enemy4_index>=1):
+        for z in range(0,enemy4_index):
+            if collide(skill4,golem[z])== True:
+                if golem[z].damaged(skill4, frame_time) == True and skill4.get_skill4() == True and skill4.get_Attack4() == False:
+                    golem.pop(z)
+                    Golem_State.pop(z)
+                    enemy4_index-=1
+                skill4.skill4_Not()
+
+
 
 
     if (enemy1_index>=1):
@@ -737,23 +827,10 @@ def update(frame_time):
                     if enemy_gate.damaged(character4[d], frame_time) == True :
                         close_canvas()
 
-               #      if character1[a].damaged(zombie[x], frame_time) == True :
-               #          character1.pop(a)
-               #          Character1_State.pop(a)
-               #          character1_index -= 1
-               #          zombie[x].Receive_State("Walk")
-               #      elif zombie[x].damaged(character1[a], frame_time) == True :
-               #          zombie.pop(x)
-               #          Zombie_State.pop(x)
-               #          enemy1_index-=1
-               #          Character1_Statea = "Walk"
-               #          character1[a].Receive_State(str(Character1_Statea))
-               # elif collide(character1[a],zombie[x])==False:
-               #        zombie[x].Receive_State("Walk")
-               #        Character1_Statea = "Walk"
-               #        character1[a].Receive_State(str(Character1_Statea))
-
-
+    skill1.update(frame_time)
+    skill2.update(frame_time)
+    skill3.update(frame_time)
+    skill4.update(frame_time)
 
     monster_create_Time()
 
@@ -761,23 +838,38 @@ def draw(frame_time):
     global enemy1_index,enemy2_index,enemy3_index,enemy4_index
     global character1_index,character2_index,character3_index,character4_index
     global Zombie_State,Vampire_State,Skeleton_State,Golem_State
-    global gold,skill1
+    global gold,skill1,skill2,skill3,skill4
+    global character1_count,character2_count,character3_count,character4_count
+
 
     clear_canvas()
     background.draw()
+    skillUI.draw(150,626)
     characterUI.draw(250,735)
     goldbar.draw(562,780)
     font.draw(65,677,'15')
     font.draw(190,677,'30')
     font.draw(300,677,'50')
     font.draw(415,677,'100')
-    font.draw(570, 780, '%1.f' % gold)
+    font.draw(575, 780, '%1.f' % gold)
+    font.draw(38, 575, '%1.f' % character1_count)
+    font.draw(105, 575, '%1.f' % character2_count)
+    font.draw(175, 575, '%1.f' % character3_count)
+    font.draw(250, 575, '%1.f' % character4_count)
 
     enemy_gate.draw()
     enemy_gate.draw_bb()
     team_gate.draw()
     team_gate.draw_bb()
+
     skill1.draw()
+    skill1.draw_bb()
+    skill2.draw()
+    # skill2.draw_bb()
+    skill3.draw()
+    # skill3.draw_bb()
+    skill4.draw()
+    # skill4.draw_bb()
 
     for x in range(0,enemy1_index):
         if Zombie_State[x]=="Appear":
