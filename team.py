@@ -356,7 +356,7 @@ class Character4:
         return self.attack_frame
 
     def update(self,frame_time):
-        distance = Character4.RUN_SPEED_PPS * frame_time*10
+        distance = Character4.RUN_SPEED_PPS * frame_time
         self.total_frames += Character4.FRAMES_PER_ACTION * Character4.ACTION_PER_TIME * frame_time
 
         if self.now_state=="Walk":

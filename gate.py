@@ -9,7 +9,7 @@ team_gate=None
 class Enemy_gate:
 
     def __init__(self):
-        self.enemy_gate=load_image('resource\\enemy_gate.png')
+        self.enemy_gate=load_image('UI\\enemy_gate.png')
         self.x=1495
         self.y=140
         self.hp=500
@@ -72,7 +72,7 @@ class Enemy_gate:
 class Team_gate:
 
     def __init__(self):
-        self.team_gate=load_image('resource\\team_gate.png')
+        self.team_gate=load_image('UI\\team_gate.png')
         self.x=100
         self.y=140
         self.hp=500

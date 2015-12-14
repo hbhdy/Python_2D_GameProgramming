@@ -1,0 +1,53 @@
+Traceback (most recent call last):
+  File "mygame.py", line 13, in <module>
+  File "C:\Temp\2DGP\hbhdy\game_framework.py", line 80, in run
+    start_state.enter()
+  File "C:\Temp\2DGP\hbhdy\start_state.py", line 14, in enter
+    image=load_image('kpu_credit.png')
+  File "C:\Temp\2DGP\hbhdy\pico2d.py", line 293, in load_image
+    raise IOError
+OSError
+Traceback (most recent call last):
+  File "mygame.py", line 13, in <module>
+  File "C:\Temp\2DGP\hbhdy\game_framework.py", line 80, in run
+    start_state.enter()
+  File "C:\Temp\2DGP\hbhdy\start_state.py", line 14, in enter
+    image=load_image('kpu_credit.png')
+  File "C:\Temp\2DGP\hbhdy\pico2d.py", line 293, in load_image
+    raise IOError
+OSError
+Traceback (most recent call last):
+  File "mygame.py", line 13, in <module>
+  File "C:\Temp\2DGP\hbhdy\game_framework.py", line 80, in run
+    start_state.enter()
+  File "C:\Temp\2DGP\hbhdy\start_state.py", line 14, in enter
+    image=load_image('kpu_credit.png')
+  File "C:\Temp\2DGP\hbhdy\pico2d.py", line 293, in load_image
+    raise IOError
+OSError
+Traceback (most recent call last):
+  File "mygame.py", line 13, in <module>
+  File "C:\Temp\2DGP\hbhdy\game_framework.py", line 86, in run
+    stack[-1].update(frame_time)
+  File "C:\Temp\2DGP\hbhdy\start_state.py", line 29, in update
+    game_framework.change_state(title_state1)
+  File "C:\Temp\2DGP\hbhdy\game_framework.py", line 48, in change_state
+    state.enter()
+  File "C:\Temp\2DGP\hbhdy\title_state1.py", line 15, in enter
+    bgm=load_music('sound/title_BGM.mp3')
+  File "C:\Temp\2DGP\hbhdy\pico2d.py", line 385, in load_music
+    raise IOError
+OSError
+Traceback (most recent call last):
+  File "mygame.py", line 13, in <module>
+  File "C:\Temp\2DGP\hbhdy\game_framework.py", line 86, in run
+    stack[-1].update(frame_time)
+  File "C:\Temp\2DGP\hbhdy\start_state.py", line 29, in update
+    game_framework.change_state(title_state1)
+  File "C:\Temp\2DGP\hbhdy\game_framework.py", line 48, in change_state
+    state.enter()
+  File "C:\Temp\2DGP\hbhdy\title_state1.py", line 15, in enter
+    bgm=load_music('sound/title_BGM.mp3')
+  File "C:\Temp\2DGP\hbhdy\pico2d.py", line 385, in load_music
+    
+OSError

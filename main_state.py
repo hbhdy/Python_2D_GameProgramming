@@ -177,13 +177,13 @@ def monster_create_Time():
             enemy1_index += 1
             zombie_StartTime = time.time()
     # vampire_checktime = int(vampire_EndTime - vampire_StartTime)
-    if( int(vampire_EndTime - vampire_StartTime) == 9):
+    if( int(vampire_EndTime - vampire_StartTime) == 10):
             vampire.append(Vampire())
             Vampire_State.append("Appear")
             enemy2_index+=1
             vampire_StartTime = time.time()
     # skeleton_checktime = int(skeleton_EndTime - skeleton_StartTime)
-    if( int(skeleton_EndTime - skeleton_StartTime) == 21 ):
+    if( int(skeleton_EndTime - skeleton_StartTime) == 20 ):
             skeleton.append(Skeleton())
             Skeleton_State.append("Appear")
             enemy3_index += 1
@@ -347,7 +347,7 @@ def update(frame_time):
 
 
 
-    gold+=(600*frame_time)
+    gold+=(7*frame_time)
 
     for x in range(0,enemy1_index):
         zombie[x].update(frame_time)
